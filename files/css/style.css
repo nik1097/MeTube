@@ -1,0 +1,405 @@
+
+
+#pageContainer
+{
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+}
+
+html, body
+{
+    padding: 0%;
+    margin: 0%;
+}
+
+
+
+.search-bar 
+{
+margin-left: auto ;
+min-width: 500px;
+}
+
+.search{
+    flex: 1;
+}
+
+.nav-item .nav-link{
+    font-weight: bold;
+}
+
+.hamburgermenu {
+    margin-right: 10px;
+}
+#side-nav {
+    width: 240px;
+    background: #f5f5f5;
+    padding-top: 56px;
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#main-section {
+    padding-top: 56px;
+    display: flex;
+}
+
+#main-section.padding-left {
+    padding-left: 240px;
+}
+#content {
+    padding: 10px 30px;
+}
+
+/* signup */
+
+.navbar-brand.signup{
+    color: #212529;
+}
+
+/*styling of video player and suggestion sections  */
+
+
+.PageDiv{
+    display: flex;
+}
+
+.watchLeftColumn{
+    flex: 1;
+}
+
+.watchLeftColumn .videoPlayer{
+    width: 100%;
+}
+
+.suggestions{
+    max-width: 425px;
+    flex-grow: 1;
+    height: 100%;
+    padding-left: 24px;
+}
+ 
+.videoInfo{
+width: 100%;
+padding: 20px 0 8px 0;
+}
+
+.videoInfo h1{
+    display: block;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.videoInfo .BottomSection{
+    display: flex;
+}
+
+.videoInfo .BottomSection .viewCount{
+    color: rgba(17, 17,17, 0.6);
+    font-size: 16px;
+    flex: 1;
+}
+
+.videoGrid {
+    display: flex;
+    flex:1;
+    flex-wrap: wrap;
+}
+
+.suggestions .videoGridItem{
+    display: flex;
+    height: auto;
+}
+
+.videoGridItem{
+    margin-right: 4px;
+    margin-bottom: 24px;
+}
+
+.videoGridItem .thumbnail{
+    width: 200px;
+    height: 100px;
+    position: relative;
+}
+
+.suggestions .videoGridItem .thumbnail{
+    margin-right: 8px;
+}
+
+.videoGridItem .thumbnail img {
+    width: 100%;
+    height: 100%;
+} 
+
+ .videoGridItem .thumbnail .duration {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    margin: 4px;
+    color: #fff;
+    background-color: rgba(17, 17,17, 0.8);
+    opacity: 0.8;
+    padding: 2px 4px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+
+}
+
+.videoGridItem .details{
+    padding-right: 24px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 200px; 
+}
+
+.suggestions .videoGridItem .details{
+    padding-right: 0;
+    flex: 1;
+}
+
+ .videoGridItem .details .title{
+    margin: 8px 0;
+    max-height: 32px;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #212529;
+
+}
+
+.videoGridItem .details .username,
+.videoGridItem .details .stats{
+    color: rgba(17, 17,17, 0.6);
+    font-size: 13px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;    
+    white-space: nowrap;
+
+}
+
+.videoGridHeader {
+    display: flex;
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.videoGridHeader div{
+    flex: 1;
+}
+
+.videoGrid.large {
+    flex-direction: column;
+    flex: 1;
+}
+
+.videoGrid.large .videoGridItem {
+    height: auto;
+    display: flex;
+}
+
+.videoGrid.large .videoGridItem .thumbnail {
+    width: 266px;
+    height: 138px;
+    margin-right: 16px;
+}
+
+.videoGrid.large .videoGridItem .details {
+    max-width: 600px;
+}
+
+.videoGrid.large .videoGridItem .details .title {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.videoGridItem .details .description {
+    color: rgba(17,17,17,0.6);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.largeVideoGridContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.videoGridHeader .right {
+    text-align: right;
+}
+
+.videoGridHeader a {
+    color: rgba(17,17,17,0.6);
+}
+
+.videoGridHeader a:after {
+    content: ' |'
+}
+
+.videoGridHeader a:last-child:after {
+    content: ''
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*messages*/
+
+.chatbox {
+    font-family: helvetica;
+    display: flex ;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  
+  .chat {
+    min-width: 100%;  
+    border: solid 1px #EEE;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 500px;
+  }
+  
+  .messages {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  
+  .yours {
+    align-items: flex-start;
+  }
+  
+  .yours .message {
+    margin-right: 25%;
+    background-color: #eee;
+    position: relative;
+  }
+  
+  .yours .message.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: -7px;
+    height: 20px;
+    width: 20px;
+    background: #eee;
+    border-bottom-right-radius: 15px;
+  }
+  .yours .message.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
+    border-bottom-right-radius: 10px;
+  }
+  
+  .mine {
+    align-items: flex-end;
+  }
+  
+  .mine .message {
+    color: white;
+    margin-left: 25%;
+    background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+    background-attachment: fixed;
+    position: relative;
+  }
+
+
+  .mine .message.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+    background-attachment: fixed;
+    border-bottom-left-radius: 15px;
+  }
+  
+  .mine .message.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
+    border-bottom-left-radius: 10px;
+  }
+
+
+
+
+
+
+  /*comments*/
+
+
+
+
+  .container1 {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+  } */
+  
+  .container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  
+
+  .time-right {
+    color: #aaa;
+  }

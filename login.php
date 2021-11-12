@@ -1,5 +1,5 @@
 <?php 
-require_once("commonFiles/config.php");
+require_once("files/connection.php");
 require_once("files/Classes/UserAccount.php");
 require_once("files/Classes/StatusMessage.php");
 
