@@ -13,7 +13,6 @@ class UserAccount{
             $this->validateUserName($userName);
             $this->validateEmail($email);
             $this->validatePassword($password,$confirmPassword);
-            
             if(empty($this->errorMessages)){
                 $query = $this->con->prepare("INSERT INTO users(emailId,password,userName) VALUES('$email','$password','$userName')");
                 return $query->execute();
@@ -31,7 +30,6 @@ class UserAccount{
         try{
             $query = $this->con->prepare("SELECT * from users where userName='$userName' and password='$password'");
             $query->execute();
-
             if($query->rowCount() ==1){
                 return true;
             }
@@ -75,13 +73,11 @@ class UserAccount{
             array_push($this->errorMessages,StatusMessage::$passwordLengthError);
         }   
     }
-
-//Update Functions
     public function updateEmail($newEmail,$userName){ 
         try{
             $this->validateEmail($newEmail);
             if(empty($this->errorMessages)){
-                $query = $this->con->prepare("UPDATE users SET emailId ='$email' where userName='$userName'");
+                $query = $this->con->prepare("UPDATE users SET emailId ='$newEmail' where userName='$userName'");
                 $result= $query->execute();
                 if($result){
                     array_push($this->successMessages,StatusMessage::$SuccessfulUpdateEmail);
@@ -115,7 +111,7 @@ class UserAccount{
             }
 
             if(empty($this->errorMessages)){
-                $query1 = $this->con->prepare("UPDATE users SET '$newPassword' where userName='$userName'");
+                $query1 = $this->con->prepare("UPDATE users SET password = '$newPassword' where userName='$userName'");
                 $result= $query1->execute();   
 
                 if($result){
@@ -135,17 +131,15 @@ class UserAccount{
             echo"Some Error Occured: ".$e->getMessage();
         }
     }
-
-
     public function displayError($error){
         if(in_array($error,$this->errorMessages)){
-            return "<span class='error text-center text-danger'>$error</span>";
+            return "<span>$error</span>";
         }
     }
 
     public function displaySuccess($success){
         if(in_array($success,$this->successMessages)){
-            return "<span class='text-center text-success'>$success</span>";
+            return "<span>$success</span>";
         }
     }
 
