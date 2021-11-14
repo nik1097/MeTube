@@ -1,11 +1,10 @@
 <?php
 class VideoItem{
 
-    private $video, $largeMode;
+    private $video;
 
-    public function __construct($video, $largeMode){
+    public function __construct($video){
         $this->video= $video;
-        $this->largeMode=$largeMode;
     }
 
     public function create(){
@@ -25,12 +24,13 @@ class VideoItem{
         $title = $this->video->getTitle();
         $userName = $this->video->getUploadedBy();
         $views = $this->video->getViews();
-        #$description = $this->getDescription();
+        $description = $this->video->getDescription();
         $uploaddate = $this->video->getUploadDate();
         
         return "<div class='details'>
                 <h3 class='title'>$title</h3>
                 <span class='username'>$userName</span>
+                <span class='description'>$description</span>
                 <div class='stats'>
                     <span class='viewCount'>$views Views </span>
                     <span class='uploaddate'>$uploaddate</span>
