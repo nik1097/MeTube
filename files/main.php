@@ -95,7 +95,7 @@ $loggedInUser = new UserDetails($con,$loggedInUserName);
       <a href='updateProfile.php'>Update Profile</a>
         </li>
         <li class='nav-item'>
-        <a href='contacts.php'>Contacts</a>
+        <a href='friend.php'>Contacts</a>
       </li> 
       <li class='nav-item'>
         <a href='messages.php'>Messages</a>
