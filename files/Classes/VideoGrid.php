@@ -21,18 +21,10 @@ class VideoGrid{
 
         else if($videos == null && $title =='All Videos'){
             $gridItems = $this->getItems('Public');
-        }
-
-        else{
-            $gridItems = $this->getItemsFromVideos($videos);
-        }
-
+        } 
+        
         $header="";
-
-        if($title != null){
-            $header=$this->createGridHeader($title, $showFilter);
-        }
-
+        $header=$this->createGridHeader($title, $showFilter);
         return "$header
         <div class='$this->gridClass'> 
         $gridItems
@@ -66,6 +58,7 @@ class VideoGrid{
     }
 
     public function getSpecialVideos($loggedInUserName){
+
         $query=$this->con->prepare("SELECT * FROM videos inner join contact on videos.uploadedBy=contact.userName 
         where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
 
@@ -92,15 +85,6 @@ class VideoGrid{
             $element .= $item->create();
         }
         return $element;
-    }
-
-    public function getItemsFromVideos($videos){
-        $element = "";
-        foreach($videos as $video) {
-            $item = new VideoItem($video);
-            $element .= $item->create();
-        }
-        return $element;        
     }
 
     public function createGridHeader($title, $showFilter){
