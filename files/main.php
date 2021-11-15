@@ -109,7 +109,7 @@ $loggedInUser = new UserDetails($con,$loggedInUserName);
     </li>
 
     <li class='nav-item'>
-      <a href='favoritelist.php?id='>Favorite List</a>
+      <a href='favorites.php'>Favorite List</a>
     </li>";
       }
       ?>

@@ -11,8 +11,12 @@ class VideoGrid{
         if($videos == null && $title == "Recommended"){
             $gridItems= $this->getPublicItems('Public', $loggedInUserName);
         }
-        else if($videos == null && $title == 'My Videos'){
+        else if($videos == null && $title == 'My Channel'){
             $gridItems = $this->getMyVideos($loggedInUserName);
+        }
+
+        else if($videos == null && $title == 'My Favorites'){
+            $gridItems = $this->getFavorite($loggedInUserName);
         }
 
         else if($videos == null && $title == 'Shared Videos'){
@@ -53,6 +57,19 @@ class VideoGrid{
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
             $video = new Video($this->con, $row);
             $item = new VideoItem($video);
+            $element .= $item->create();
+        }
+        return $element;
+    }
+
+    public function getFavorite($loggedInUserName){
+        $query=$this->con->prepare("SELECT videos.* FROM videos inner join favorites on videos.id=favorites.videoId where favorites.userName='$loggedInUserName'");
+        $query->execute();
+
+        $element="";
+        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $video=new Video($this->con, $row);
+            $item=new VideoItem($video);
             $element .= $item->create();
         }
         return $element;

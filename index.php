@@ -8,7 +8,6 @@
     }
     else{
         $videoGrid= new VideoGrid($con);
-        echo $videoGrid->create(null, "My Videos", false, $loggedInUserName);
         echo $videoGrid->create(null, "Recommended", false, $loggedInUserName);
         echo $videoGrid->create(null, "Shared Videos", false, $loggedInUserName);
     }

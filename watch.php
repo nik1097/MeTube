@@ -46,7 +46,7 @@
     <button type='submit' value='$vidId' name='playlistButton'>Playlist</button>
     </form>";
 
-    echo "<form action='favorite.php' method='POST' >
+    echo "<form action='addtofavorites.php' method='POST' >
     <button type='submit' value='$vidId' name='favoriteButton'>Favorite</button>
     </form>";
 
