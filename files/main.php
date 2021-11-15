@@ -98,7 +98,7 @@ $loggedInUser = new UserDetails($con,$loggedInUserName);
         <a href='friend.php'>Contacts</a>
       </li> 
       <li class='nav-item'>
-        <a href='messages.php'>Messages</a>
+        <a href='message.php'>Messages</a>
       </li>
       
       <li class='nav-item'>
