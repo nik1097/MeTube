@@ -83,7 +83,7 @@ require_once("files/main.php");
                 Family
             </label>
         </div>
-         <div class="form-check">
+        <div class="form-check">
             <input type="radio" class="form-check-input" name="visibility" id="Fav" value="Fav">
             <label class="form-check-label" for="Fav">
                 Fav
@@ -97,7 +97,7 @@ require_once("files/main.php");
     </div>
     <br>
     <button class="btn btn btn-primary" value="upload" name="upload" type="submit" />Upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn btn-secondary" value="cancel" name="cancel" type="submit" >Cancel</button>
+    <button class="btn btn btn-secondary" onclick="location.href='index.php';" type="button" >Cancel</button>
 
 </form>
 
