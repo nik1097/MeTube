@@ -78,9 +78,15 @@ require_once("files/main.php");
             </label>
         </div>
         <div class="form-check">
-            <input type="radio" class="form-check-input" name="visibility" id="Private" value="Private">
-            <label class="form-check-label" for="Private">
-                Private
+            <input type="radio" class="form-check-input" name="visibility" id="Family" value="Family">
+            <label class="form-check-label" for="Family">
+                Family
+            </label>
+        </div>
+         <div class="form-check">
+            <input type="radio" class="form-check-input" name="visibility" id="Fav" value="Fav">
+            <label class="form-check-label" for="Fav">
+                Fav
             </label>
         </div>
     </div>
