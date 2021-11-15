@@ -78,9 +78,15 @@ require_once("files/main.php");
             </label>
         </div>
         <div class="form-check">
-            <input type="radio" class="form-check-input" name="visibility" id="Private" value="Private">
-            <label class="form-check-label" for="Private">
-                Private
+            <input type="radio" class="form-check-input" name="visibility" id="Family" value="Family">
+            <label class="form-check-label" for="Family">
+                Family
+            </label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="visibility" id="Fav" value="Fav">
+            <label class="form-check-label" for="Fav">
+                Fav
             </label>
         </div>
     </div>
@@ -91,7 +97,7 @@ require_once("files/main.php");
     </div>
     <br>
     <button class="btn btn btn-primary" value="upload" name="upload" type="submit" />Upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn btn-secondary" value="cancel" name="cancel" type="submit" >Cancel</button>
+    <button class="btn btn btn-secondary" onclick="location.href='index.php';" type="button" >Cancel</button>
 
 </form>
 

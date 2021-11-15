@@ -2,11 +2,6 @@
 require_once("files/connection.php");
 require_once("files/main.php");
 
-if ($_POST['cancel']) {
-    header("Location: index.php");
-    exit;
-}
-
 $filename = $_FILES["mediaFile"]["name"];
 $title = $_POST["title"];
 $description = $_POST['description'];
