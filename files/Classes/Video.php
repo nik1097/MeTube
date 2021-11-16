@@ -9,7 +9,7 @@ class Video{
         }
         else{
             //$query = $this->con->prepare("SELECT * FROM videos where id = '$input'");
-            $query = $this->con->prepare("SELECT * FROM media where media_id = '$input'");
+            $query = $this->con->prepare("SELECT * FROM media where id = '$input'");
             $query->execute();
 
             $this->userData = $query->fetch(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class Video{
 
     public function getFilepath(){
         //return $this->userData["filepath"];
-        return $this->userData["file_path"];
+        return $this->userData["filepath"];
     }
 
     public function getThumbnailpath(){

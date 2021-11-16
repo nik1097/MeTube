@@ -8,7 +8,7 @@ class CommentsClass{
 
     public function getAllCommentsOfVideo($videoId){
         try{
-            $query=$this->con->prepare("select * from comments where videoId='$videoId' order by commentedDate");
+            $query=$this->con->prepare("select * from comments where mediaId='$videoId' order by commentedDate");
             $query->execute();
             if($query->rowCount()==0){
                 return "";
