@@ -42,7 +42,6 @@ class Video{
 //    }
 
     public function getFilepath(){
-        //return $this->userData["filepath"];
         return $this->userData["filepath"];
     }
 
@@ -70,9 +69,8 @@ class Video{
     }
 
     public function incrementViews(){
-        //$query= $this->con->prepare("UPDATE videos SET views = views+1 WHERE id = '$videoId'");
-        $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE id = '$videoId'");
         $videoId=$this->getId();
+        $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE id = '$videoId'");
         $query->execute();
         $this->userData["views"] = $this->userData["views"] + 1;
     }    

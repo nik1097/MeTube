@@ -20,7 +20,7 @@
     }
 
     $video= new Video($con,$vidId);
-    #$video->incrementViews();
+    $video->incrementViews();
 ?>
 
 <div class="PageDiv"> 
