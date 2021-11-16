@@ -1,5 +1,5 @@
 <?php
-class VideoGrid{
+class MediaGrid{
     private $con;
     private $gridClass = "videoGrid";
 
@@ -7,23 +7,23 @@ class VideoGrid{
         $this->con= $con;
     }
 
-    public function create($videos, $title, $showFilter,$loggedInUserName){
-        if($videos == null && $title == "Recommended"){
+    public function create($media, $title, $showFilter,$loggedInUserName){
+        if($media == null && $title == "Recommended"){
             $gridItems= $this->getPublicItems('Public', $loggedInUserName);
         }
-        else if($videos == null && $title == 'My Channel'){
-            $gridItems = $this->getMyVideos($loggedInUserName);
+        else if($media == null && $title == 'My Channel'){
+            $gridItems = $this->getMyMedia($loggedInUserName);
         }
 
-        else if($videos == null && $title == 'My Favorites'){
+        else if($media == null && $title == 'My Favorites'){
             $gridItems = $this->getFavorite($loggedInUserName);
         }
 
-        else if($videos == null && $title == 'Shared Videos'){
-            $gridItems = $this->getSpecialVideos($loggedInUserName);
+        else if($media == null && $title == 'Shared Media'){
+            $gridItems = $this->getSpecialMedia($loggedInUserName);
         }
 
-        else if($videos == null && $title =='All Videos'){
+        else if($media == null && $title =='All Media'){
             $gridItems = $this->getItems('Public');
         } 
         
@@ -43,22 +43,22 @@ class VideoGrid{
 
         $element="";
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
-            $video = new Video($this->con, $row);
-            $item = new VideoItem($video);
+            $media = new Media($this->con, $row);
+            $item = new MediaItem($media);
             $element .= $item->create();
         }
         return $element;
     }
 
-    public function getMyVideos($loggedInUserName){
+    public function getMyMedia($loggedInUserName){
         //$query=$this->con->prepare("SELECT * FROM videos where uploadedBy = '$loggedInUserName'");
-        $query=$this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName' and mediaType = 'video'");
+        $query=$this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName'");
         $query->execute();
 
         $element="";
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
-            $video = new Video($this->con, $row);
-            $item = new VideoItem($video);
+            $media = new Media($this->con, $row);
+            $item = new MediaItem($media);
             $element .= $item->create();
         }
         return $element;
@@ -71,14 +71,14 @@ class VideoGrid{
 
         $element="";
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
-            $video=new Video($this->con, $row);
-            $item=new VideoItem($video);
+            $media=new Media($this->con, $row);
+            $item=new MediaItem($media);
             $element .= $item->create();
         }
         return $element;
     }
 
-    public function getSpecialVideos($loggedInUserName){
+    public function getSpecialMedia($loggedInUserName){
 
 //        $query=$this->con->prepare("SELECT videos.* FROM videos inner join contact on videos.uploadedBy=contact.userName
 //        where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
@@ -92,8 +92,8 @@ class VideoGrid{
 
         $element="";
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
-            $video = new Video($this->con, $row);
-            $item = new VideoItem($video);
+            $media = new Media($this->con, $row);
+            $item = new MediaItem($media);
             $element .= $item->create();
         }
         return $element;
@@ -111,8 +111,8 @@ class VideoGrid{
 
         $element="";
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
-            $video=new Video($this->con, $row);
-            $item=new VideoItem($video);
+            $media=new Media($this->con, $row);
+            $item=new MediaItem($media);
             $element .= $item->create();
         }
         return $element;

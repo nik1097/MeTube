@@ -3,13 +3,13 @@
 <div class='videoSection'>
     <?php
     if($loggedInUserName==""){
-        $videoGrid= new VideoGrid($con);
-        echo $videoGrid->create(null, "All Videos", false, $loggedInUserName);
+        $mediaGrid= new MediaGrid($con);
+        echo $mediaGrid->create(null, "All Media", false, $loggedInUserName);
     }
     else{
-        $videoGrid= new VideoGrid($con);
-        echo $videoGrid->create(null, "Recommended", false, $loggedInUserName);
-        echo $videoGrid->create(null, "Shared Videos", false, $loggedInUserName);
+        $mediaGrid= new MediaGrid($con);
+        echo $mediaGrid->create(null, "Recommended", false, $loggedInUserName);
+        echo $mediaGrid->create(null, "Shared Media", false, $loggedInUserName);
     }
     ?>
 </div>

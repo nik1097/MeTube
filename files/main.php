@@ -1,9 +1,9 @@
 <?php 
 require_once("files/connection.php"); 
 require_once("files/Classes/UserDetails.php");
-require_once("files/Classes/Video.php");
-require_once("files/Classes/VideoGrid.php"); 
-require_once("files/Classes/VideoItem.php");  
+require_once("files/Classes/Media.php");
+require_once("files/Classes/MediaGrid.php"); 
+require_once("files/Classes/MediaItem.php");  
 
 $loggedInUserName="";
 if(isset($_SESSION["loggedinUser"])){

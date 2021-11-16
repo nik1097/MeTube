@@ -1,9 +1,9 @@
 <?php
 
-class VideoInfoSection{
-    private $con,$video,$userLoggedInObj;
-    public function __construct($con,$video,$userLoggedInObj){
-        $this->video= $video;
+class MediaInfoSection{
+    private $con,$media,$userLoggedInObj;
+    public function __construct($con,$media,$userLoggedInObj){
+        $this->media= $media;
         $this->con= $con;
         $this->userLoggedInObj= $userLoggedInObj;
     }
@@ -12,8 +12,8 @@ class VideoInfoSection{
         return $this->createInfo();
     }
     private function createInfo(){
-        $title= $this->video->getTitle();
-        $views= $this->video->getViews(); 
+        $title= $this->media->getTitle();
+        $views= $this->media->getViews(); 
         
         return "<div class='videoInfo'>
             <h1>$title</h1>

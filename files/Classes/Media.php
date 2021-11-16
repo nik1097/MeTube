@@ -1,5 +1,5 @@
 <?php
-class Video{
+class Media{
     private $con;
     private $userData;
     public function __construct($con,$input){

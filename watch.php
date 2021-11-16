@@ -1,8 +1,8 @@
 <?php 
 
     require_once("files/main.php");
-    require_once("files/Classes/VideoPlayer.php");
-    require_once("files/Classes/VideoInfoSection.php");
+    require_once("files/Classes/MediaPlayer.php");
+    require_once("files/Classes/MediaInfoSection.php");
     require_once("files/Classes/CommentsClass.php");
 
     $commentsClass= new CommentsClass($con);
@@ -19,15 +19,15 @@
         $vidId = $_POST["postComment"];
     }
 
-    $video= new Video($con,$vidId);
-    $video->incrementViews();
+    $media= new Media($con,$vidId);
+    $media->incrementViews();
 ?>
 
 <div class="PageDiv"> 
     <div class="watchLeftColumn embed-responsive embed-responsive-16by9">
     <?php
-        $videoPlayer= new VideoPlayer($video);
-        echo $videoPlayer->create();
+        $mediaPlayer= new MediaPlayer($media);
+        echo $mediaPlayer->create();
     ?>
     </div>
 </div>
@@ -35,8 +35,8 @@
 <div>
 
 <?php
-    $videoPlayer= new VideoInfoSection($con,$video,$loggedInUser);
-    echo $videoPlayer->create();
+    $mediaPlayer= new MediaInfoSection($con,$media,$loggedInUser);
+    echo $mediaPlayer->create();
 
     echo "<form action='download.php' method='POST' >
     <button type='submit' value='$vidId' name='downloadButton'>Download</button>
@@ -56,7 +56,7 @@
 <?php
     echo "<div style='padding-top:20px;' ><h3>Comment Section</h3></div>";
     if(isset($_GET["Id"])){
-        $result=$commentsClass->getAllCommentsOfVideo($vidId);
+        $result=$commentsClass->getAllCommentsOfMedia($vidId);
         if($result==""){
             echo "No Comments";
         }
@@ -68,7 +68,7 @@
 
     if(isset($_POST["postComment"])){
         $commentsClass->postComment($loggedInUserName,$vidId,$_POST['comment']); 
-        $result=$commentsClass->getAllCommentsOfVideo($vidId);
+        $result=$commentsClass->getAllCommentsOfMedia($vidId);
         echo $result;
         header("location:watch.php?Id=$vidId");
     }

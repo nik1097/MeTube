@@ -6,7 +6,7 @@ class CommentsClass{
         $this->con = $con;
     }
 
-    public function getAllCommentsOfVideo($videoId){
+    public function getAllCommentsOfMedia($videoId){
         try{
             $query=$this->con->prepare("select * from comments where videoId='$videoId' order by commentedDate");
             $query->execute();

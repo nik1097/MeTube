@@ -1,19 +1,17 @@
 <?php
-class VideoItem{
-
-    private $video;
-
-    public function __construct($video){
-        $this->video= $video;
+class MediaItem{
+    private $media;
+    public function __construct($media){
+        $this->media= $media;
     }
 
     public function create(){
-        $thumbnail_path = '/MeTube/'.$this->video->getThumbnailpath();
+        $thumbnail_path = '/MeTube/'.$this->media->getThumbnailpath();
 
         $thumbnail="<div class='thumbnail'>
                     <img src=$thumbnail_path></div>";
         $details= $this->createDetails();
-        $url= "watch.php?Id=" . $this->video->getId();
+        $url= "watch.php?Id=" . $this->media->getId();
         
         return "<a href='$url'>
                     <div class='videoGridItem'>
@@ -23,11 +21,11 @@ class VideoItem{
                 </a>";
     }
     private function createDetails(){
-        $title = $this->video->getTitle();
-        $userName = $this->video->getUploadedBy();
-        $views = $this->video->getViews();
-        $description = $this->video->getDescription();
-        $uploaddate = $this->video->getUploadDate();
+        $title = $this->media->getTitle();
+        $userName = $this->media->getUploadedBy();
+        $views = $this->media->getViews();
+        $description = $this->media->getDescription();
+        $uploaddate = $this->media->getUploadDate();
         
         return "<div class='details'>
                 <h3 class='title'>$title</h3>

@@ -3,8 +3,8 @@
 <div class='videoSection'>
     <?php
     if($loggedInUserName!=""){
-        $videoGrid= new VideoGrid($con);
-        echo $videoGrid->create(null, "My Favorites", false, $loggedInUserName);
+        $mediaGrid= new MediaGrid($con);
+        echo $mediaGrid->create(null, "My Favorites", false, $loggedInUserName);
     }
     ?>
 </div>
