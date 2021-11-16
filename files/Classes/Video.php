@@ -18,7 +18,7 @@ class Video{
 
     public function getId(){
         //return $this->userData["id"];
-        return $this->userData["media_id"];
+        return $this->userData["id"];
     }
     
     public function getUploadedBy(){
@@ -47,11 +47,11 @@ class Video{
     }
 
     public function getThumbnailpath(){
-        return $this->userData["thumbnail_path"];
+        return $this->userData["thumbnail"];
     }
 
     public function getSize(){
-        return $this->userData["media_size"];
+        return $this->userData["mediaSize"];
     }
 
     public function getCategory(){
@@ -71,7 +71,7 @@ class Video{
 
     public function incrementViews(){
         //$query= $this->con->prepare("UPDATE videos SET views = views+1 WHERE id = '$videoId'");
-        $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE media_id = '$videoId'");
+        $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE id = '$videoId'");
         $videoId=$this->getId();
         $query->execute();
         $this->userData["views"] = $this->userData["views"] + 1;

@@ -52,7 +52,7 @@ class VideoGrid{
 
     public function getMyVideos($loggedInUserName){
         //$query=$this->con->prepare("SELECT * FROM videos where uploadedBy = '$loggedInUserName'");
-        $query=$this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName' and media_type = 'video'");
+        $query=$this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName' and mediaType = 'video'");
         $query->execute();
 
         $element="";
@@ -66,7 +66,7 @@ class VideoGrid{
 
     public function getFavorite($loggedInUserName){
         //$query=$this->con->prepare("SELECT videos.* FROM videos inner join favorites on videos.id=favorites.videoId where favorites.userName='$loggedInUserName'");
-        $query=$this->con->prepare("SELECT media.* FROM media inner join favorites on media.media_id=favorites.videoId where favorites.userName='$loggedInUserName'");
+        $query=$this->con->prepare("SELECT media.* FROM media inner join favorites on media.id=favorites.videoId where favorites.userName='$loggedInUserName'");
         $query->execute();
 
         $element="";
