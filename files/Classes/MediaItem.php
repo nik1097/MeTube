@@ -9,7 +9,7 @@ class MediaItem{
         $thumbnail_path = '/MeTube/'.$this->media->getThumbnailpath();
 
         $thumbnail="<div class='thumbnail'>
-                    <img src=$thumbnail_path></div>";
+                    <img src='$thumbnail_path'></div>";
         $details= $this->createDetails();
         $url= "watch.php?Id=" . $this->media->getId();
         

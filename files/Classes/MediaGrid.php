@@ -8,6 +8,7 @@ class MediaGrid{
     }
 
     public function create($media, $title, $showFilter,$loggedInUserName){
+        $categoryList = array("Animal", "Sports", "Other", "Human");
         if($media == null && $title == "Recommended"){
             $gridItems= $this->getPublicItems('Public', $loggedInUserName);
         }
@@ -25,8 +26,11 @@ class MediaGrid{
 
         else if($media == null && $title =='All Media'){
             $gridItems = $this->getItems('Public');
-        } 
-        
+        }
+
+        else if($media == null && in_array($title , $categoryList)){
+            $gridItems = $this->getCategory($loggedInUserName, $title);
+        }
         $header="";
         $header=$this->createGridHeader($title, $showFilter);
         return "$header
@@ -117,7 +121,57 @@ class MediaGrid{
         }
         return $element;
     }
+    public function getCategory($loggedInUserName, $category){
+        if ($loggedInUserName == ""){
+            $query=$this->con->prepare("SELECT * FROM media where privacy = 'Public' and category = '$category'");
+        } else {
+            $query=$this->con->prepare("SELECT media.* FROM media 
+                                    inner join users on media.uploadedBy=users.userName and users.userName !='$loggedInUserName' 
+                                    left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName' 
+                                    where media.category='$category'");
+        }
 
+        $query->execute();
+
+        $element="";
+        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $video=new Media($this->con, $row);
+            $item=new MediaItem($video);
+            $element .= $item->create();
+        }
+        return $element;
+    }
+    public function getMostViews($loggedInUserName){
+        $query=$this->con->prepare("SELECT media.* FROM media 
+                                    inner join users on media.uploadedBy=users.userName and users.userName !='$loggedInUserName' 
+                                    left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName' 
+                                    order by media.views desc");
+        $query->execute();
+
+        $element="";
+        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $video=new Media($this->con, $row);
+            $item=new MediaItem($video);
+            $element .= $item->create();
+        }
+        return $element;
+    }
+
+    public function getRecentUploads($loggedInUserName){
+        $query=$this->con->prepare("SELECT media.* FROM media 
+                                    inner join users on media.uploadedBy=users.userName and users.userName !='$loggedInUserName' 
+                                    left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName' 
+                                    order by media.uploadDate desc");
+        $query->execute();
+
+        $element="";
+        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $video=new Media($this->con, $row);
+            $item=new MediaItem($video);
+            $element .= $item->create();
+        }
+        return $element;
+    }
     public function createGridHeader($title, $showFilter){
         $filter = "";
         if($showFilter){
