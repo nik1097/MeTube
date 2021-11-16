@@ -53,6 +53,16 @@
 ?> 
 </div>
 
+<div align="center" style="background: #000; padding: 50px;color:white;">
+        <i class="fa fa-star fa-2x" data-index="0"></i>
+        <i class="fa fa-star fa-2x" data-index="1"></i>
+        <i class="fa fa-star fa-2x" data-index="2"></i>
+        <i class="fa fa-star fa-2x" data-index="3"></i>
+        <i class="fa fa-star fa-2x" data-index="4"></i>
+        <br><br>
+        <?php echo round($avg,2) ?>
+    </div>
+
 <?php
     echo "<div style='padding-top:20px;' ><h3>Comment Section</h3></div>";
     if(isset($_GET["Id"])){
