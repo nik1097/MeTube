@@ -8,7 +8,8 @@ class Video{
             $this->userData=$input;
         }
         else{
-            $query = $this->con->prepare("SELECT * FROM videos where id = '$input'");
+            //$query = $this->con->prepare("SELECT * FROM videos where id = '$input'");
+            $query = $this->con->prepare("SELECT * FROM media where media_id = '$input'");
             $query->execute();
 
             $this->userData = $query->fetch(PDO::FETCH_ASSOC);
@@ -16,7 +17,8 @@ class Video{
     }
 
     public function getId(){
-        return $this->userData["id"];
+        //return $this->userData["id"];
+        return $this->userData["media_id"];
     }
     
     public function getUploadedBy(){
@@ -35,12 +37,21 @@ class Video{
         return $this->userData["privacy"];
     }
 
-    public function getKeywords(){
-        return $this->userData["keywords"];
-    }
+//    public function getKeywords(){
+//        return $this->userData["keywords"];
+//    }
 
     public function getFilepath(){
-        return $this->userData["filepath"];
+        //return $this->userData["filepath"];
+        return $this->userData["file_path"];
+    }
+
+    public function getThumbnailpath(){
+        return $this->userData["thumbnail_path"];
+    }
+
+    public function getSize(){
+        return $this->userData["media_size"];
     }
 
     public function getCategory(){
@@ -59,7 +70,8 @@ class Video{
     }
 
     public function incrementViews(){
-        $query= $this->con->prepare("UPDATE videos SET views = views+1 WHERE id = '$videoId'");
+        //$query= $this->con->prepare("UPDATE videos SET views = views+1 WHERE id = '$videoId'");
+        $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE media_id = '$videoId'");
         $videoId=$this->getId();
         $query->execute();
         $this->userData["views"] = $this->userData["views"] + 1;

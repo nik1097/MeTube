@@ -8,8 +8,10 @@ class VideoItem{
     }
 
     public function create(){
+        $thumbnail_path = '/MeTube/'.$this->video->getThumbnailpath();
+
         $thumbnail="<div class='thumbnail'>
-                     <img src='http://unsplash.it/250/150?gravity=center'></div>";
+                    <img src=$thumbnail_path></div>";
         $details= $this->createDetails();
         $url= "watch.php?Id=" . $this->video->getId();
         

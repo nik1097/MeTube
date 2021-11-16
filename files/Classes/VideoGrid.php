@@ -37,7 +37,8 @@ class VideoGrid{
 
 
     public function getItems($privacy){
-        $query=$this->con->prepare("SELECT * FROM videos where privacy = '$privacy'");
+        //$query=$this->con->prepare("SELECT * FROM videos where privacy = '$privacy'");
+        $query=$this->con->prepare("SELECT * FROM media where privacy = '$privacy'");
         $query->execute();
 
         $element="";
@@ -50,7 +51,8 @@ class VideoGrid{
     }
 
     public function getMyVideos($loggedInUserName){
-        $query=$this->con->prepare("SELECT * FROM videos where uploadedBy = '$loggedInUserName'");
+        //$query=$this->con->prepare("SELECT * FROM videos where uploadedBy = '$loggedInUserName'");
+        $query=$this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName' and media_type = 'video'");
         $query->execute();
 
         $element="";
@@ -63,7 +65,8 @@ class VideoGrid{
     }
 
     public function getFavorite($loggedInUserName){
-        $query=$this->con->prepare("SELECT videos.* FROM videos inner join favorites on videos.id=favorites.videoId where favorites.userName='$loggedInUserName'");
+        //$query=$this->con->prepare("SELECT videos.* FROM videos inner join favorites on videos.id=favorites.videoId where favorites.userName='$loggedInUserName'");
+        $query=$this->con->prepare("SELECT media.* FROM media inner join favorites on media.media_id=favorites.videoId where favorites.userName='$loggedInUserName'");
         $query->execute();
 
         $element="";
@@ -77,8 +80,13 @@ class VideoGrid{
 
     public function getSpecialVideos($loggedInUserName){
 
-        $query=$this->con->prepare("SELECT videos.* FROM videos inner join contact on videos.uploadedBy=contact.userName 
-        where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
+//        $query=$this->con->prepare("SELECT videos.* FROM videos inner join contact on videos.uploadedBy=contact.userName
+//        where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
+
+        $query=$this->con->prepare("SELECT media.* FROM media inner join contact on media.uploadedBy=contact.userName 
+                                where contactUserName='$loggedInUserName' and((contactType='Family' and media.privacy='Family') 
+                                              or (contactType='Friend' and media.privacy='Friend') 
+                                              or (contactType='Fav' and media.privacy='Fav'))");
 
         $query->execute();
 
@@ -92,8 +100,13 @@ class VideoGrid{
     }
 
     public function getPublicItems($privacy,$loggedInUserName){
-        $query=$this->con->prepare("SELECT videos.* FROM videos inner join users on videos.uploadedBy=users.userName and users.userName !='$loggedInUserName' left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName' where videos.privacy='$privacy'");
+//        $query=$this->con->prepare("SELECT videos.* FROM videos inner join users on videos.uploadedBy=users.userName
+//                                                    and users.userName !='$loggedInUserName' left outer join contact on users.userName=contact.userName
+//                                                        and contactUserName='$loggedInUserName' where videos.privacy='$privacy'");
 
+        $query=$this->con->prepare("SELECT media.* FROM media inner join users on media.uploadedBy=users.userName 
+                                                    and users.userName !='$loggedInUserName' left outer join contact on users.userName=contact.userName 
+                                                        and contactUserName='$loggedInUserName' where media.privacy='$privacy'");
         $query->execute();
 
         $element="";
