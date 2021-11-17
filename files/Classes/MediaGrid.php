@@ -7,7 +7,7 @@ class MediaGrid{
         $this->con= $con;
     }
 
-    public function create($media, $title, $loggedInUserName){
+    public function create($media, $title, $loggedInUserName, $hide = 'not hidden'){
         $categoryList = array("Animal", "Sports", "Other", "Human");
         if($media == null && $title == "Recommended"){
             $gridItems= $this->getPublicItems('Public', $loggedInUserName);
@@ -28,17 +28,34 @@ class MediaGrid{
             $gridItems = $this->getItems('Public');
         }
 
+        else if($media == null && $title =='Suggestions'){
+            $gridItems = $this->getSuggestions('Public', $hide);
+        }
+
         else if($media == null && in_array($title , $categoryList)){
             $gridItems = $this->getCategory($loggedInUserName, $title);
         }
         $header="";
-        $header=$this->createGridHeader($title);
+        $header=$this->createGridHeader($title, $hide);
         return "$header
         <div class='$this->gridClass'> 
         $gridItems
         </div>";
     }
 
+    public function getSuggestions($privacy){
+        //$query=$this->con->prepare("SELECT * FROM videos where privacy = '$privacy'");
+        $query=$this->con->prepare("SELECT * FROM media where privacy = '$privacy' limit 4");
+        $query->execute();
+
+        $element="";
+        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $media = new Media($this->con, $row);
+            $item = new MediaItem($media);
+            $element .= $item->create();
+        }
+        return $element;
+    }
 
     public function getItems($privacy){
         //$query=$this->con->prepare("SELECT * FROM videos where privacy = '$privacy'");
@@ -175,8 +192,9 @@ class MediaGrid{
         }
         return $element;
     }
-    public function createGridHeader($title){
+    public function createGridHeader($title, $hide = 'not hidden'){
         $filter = "";
+        if ($hide != 'hidden'){
         $filter = "<div class='right'>
                         <span>Order by:</span>
                         <a href='http://localhost/MeTube/search.php?term=&orderBy=uploadDate'>Upload Date</a>
@@ -189,6 +207,7 @@ class MediaGrid{
                 </div>
                 $filter
         </div>";
+        }
     }
 }
 

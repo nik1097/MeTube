@@ -30,6 +30,13 @@
         echo $mediaPlayer->create();
     ?>
     </div>
+    <div class= "suggestions">
+        <?php
+            $mediaGrid= new MediaGrid($con);
+            echo $mediaGrid->create(null, "Suggestions", $loggedInUserName, $hide='hidden');
+        ?>
+
+    </div>
 </div>
 
 <div>
