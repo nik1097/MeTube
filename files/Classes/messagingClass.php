@@ -1,6 +1,6 @@
 <?php  
 class MessagingClass{
-	private $con;
+    private $con;
     public function __construct($con){
         $this->con=$con;
     }
@@ -38,11 +38,12 @@ class MessagingClass{
                     </div></td></tr>";
                 }
 
-                $html.="<form action='message.php' method='POST'>
+                $html.="</tbody>
+                </table></div>
+                <form action='message.php' method='POST'>
                     <button type='submit' class='btn btn-primary' name='viewMessage' value='$userName'>View Message</button>
                     </form>
-                </tbody>
-                </table></div>
+                
                 </div>";
                  return $html;
             }
@@ -90,3 +91,4 @@ class MessagingClass{
         }
     }
 }
+
