@@ -9,7 +9,7 @@ require_once("files/Classes/StatusMessage.php");
     <h3 class="text-dark display-3 text-center">Contacts</h3>
 
     <?php
-    //$contactBean = new ContactBean();
+    
     $friendsClass = new FriendsClass($con);
     $result= $friendsClass->getAllUserstoFriend($loggedInUserName);
     if($result!="")
@@ -34,6 +34,12 @@ require_once("files/Classes/StatusMessage.php");
     	else if(isset($_POST["favoriteButton"])){
     		$resultKey = $friendsClass->makefriends($loggedInUserName, $_POST["favoriteButton"],'Fav');
     	}
+        else if(isset($_POST["blockButton"])){
+            $resultKey = $friendsClass->blockfriends($loggedInUserName, $_POST["blockButton"],'Blocked');
+        }
+        else if(isset($_POST["unblockButton"])){
+            $resultKey = $friendsClass->blockfriends($loggedInUserName, $_POST["unblockButton"],'Not Blocked');
+        }
    	?>
 
 </div>

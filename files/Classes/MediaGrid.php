@@ -88,9 +88,11 @@ class MediaGrid{
 //        where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
 
         $query=$this->con->prepare("SELECT media.* FROM media inner join contact on media.uploadedBy=contact.userName 
-                                where contactUserName='$loggedInUserName' and((contactType='Family' and media.privacy='Family') 
+                                where contactUserName='$loggedInUserName' and
+                                ((contactType='Family' and media.privacy='Family') 
                                               or (contactType='Friend' and media.privacy='Friend') 
-                                              or (contactType='Fav' and media.privacy='Fav'))");
+                                              or (contactType='Fav' and media.privacy='Fav')) and 
+                                              status = 'Not Blocked'");
 
         $query->execute();
 
@@ -109,8 +111,10 @@ class MediaGrid{
 //                                                        and contactUserName='$loggedInUserName' where videos.privacy='$privacy'");
 
         $query=$this->con->prepare("SELECT media.* FROM media inner join users on media.uploadedBy=users.userName 
-                                                    and users.userName !='$loggedInUserName' left outer join contact on users.userName=contact.userName 
-                                                        and contactUserName='$loggedInUserName' where media.privacy='$privacy'");
+            and users.userName !='$loggedInUserName' left outer join contact on users.userName=contact.userName 
+                and contactUserName='$loggedInUserName' where media.privacy='$privacy' and (status!='Blocked' or status is NULL)");
+
+
         $query->execute();
 
         $element="";
