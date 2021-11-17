@@ -7,7 +7,7 @@ class MediaGrid{
         $this->con= $con;
     }
 
-    public function create($media, $title, $showFilter,$loggedInUserName){
+    public function create($media, $title, $loggedInUserName){
         $categoryList = array("Animal", "Sports", "Other", "Human");
         if($media == null && $title == "Recommended"){
             $gridItems= $this->getPublicItems('Public', $loggedInUserName);
@@ -32,7 +32,7 @@ class MediaGrid{
             $gridItems = $this->getCategory($loggedInUserName, $title);
         }
         $header="";
-        $header=$this->createGridHeader($title, $showFilter);
+        $header=$this->createGridHeader($title);
         return "$header
         <div class='$this->gridClass'> 
         $gridItems
@@ -83,7 +83,6 @@ class MediaGrid{
     }
 
     public function getSpecialMedia($loggedInUserName){
-
 //        $query=$this->con->prepare("SELECT videos.* FROM videos inner join contact on videos.uploadedBy=contact.userName
 //        where contactUserName='$loggedInUserName' and((contactType='Family' and videos.privacy='Family') or (contactType='Friend' and videos.privacy='Friend') or (contactType='Fav' and videos.privacy='Fav'))");
 
@@ -176,23 +175,14 @@ class MediaGrid{
         }
         return $element;
     }
-    public function createGridHeader($title, $showFilter){
+    public function createGridHeader($title){
         $filter = "";
-        if($showFilter){
-            $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            $urlArray = parse_url($link);
-            $query = $urlArray["query"];
-            parse_str($query, $params);
-            unset($params["orderBy"]);
-            $newQuery = http_build_query($params);
-            $newUrl = basename($_SERVER["PHP_SELF"]) . "?" . $newQuery;
-            $filter = "<div class='right'>
-                            <span>Order by:</span>
-                            <a href='$newUrl&orderBy=uploadDate'>Upload Date</a>
-                            <a href='$newUrl&orderBy=Views'>Most Viewed</a>
-                            <a href='$newUrl&orderBy=Title'>Sort by Title</a>
-                        </div>";
-        }
+        $filter = "<div class='right'>
+                        <span>Order by:</span>
+                        <a href='http://localhost/MeTube/search.php?term=&orderBy=uploadDate'>Upload Date</a>
+                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Views'>Most Viewed</a>
+                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Title'>Sort by Title</a>
+                    </div>";
         return "<div class='videoGridHeader'> 
                 <div class='left'>
                     $title
