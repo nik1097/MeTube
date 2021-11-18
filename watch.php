@@ -24,7 +24,7 @@
 ?>
 
 <div class="PageDiv"> 
-    <div class="watchLeftColumn embed-responsive embed-responsive-16by9">
+    <div class="watchLeftColumn embed-responsive">
     <?php
         $mediaPlayer= new MediaPlayer($media);
         echo $mediaPlayer->create();

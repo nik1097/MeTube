@@ -45,7 +45,7 @@ class MediaGrid{
 
     public function getSuggestions($privacy){
         //$query=$this->con->prepare("SELECT * FROM videos where privacy = '$privacy'");
-        $query=$this->con->prepare("SELECT * FROM media where privacy = '$privacy' limit 4");
+        $query=$this->con->prepare("SELECT * FROM media where privacy = '$privacy' order by rand() limit 4");
         $query->execute();
 
         $element="";
