@@ -7,6 +7,10 @@ class MediaGrid{
         $this->con= $con;
     }
 
+    //$function_list = array("getPublicItems", "getMyMedia", "getFavorite", "getSpecialMedia", "getItems", "getSuggestions", "getCategory");
+    //$title_list = array("Recommended", "My Channel", "My Favorites", "Shared Media", "All Media", "Suggestions");
+
+    //$funtion_to_title = array();
     public function create($media, $title, $loggedInUserName, $hide = 'not hidden'){
         $categoryList = array("Animal", "Sports", "Other", "Human");
         if($media == null && $title == "Recommended"){

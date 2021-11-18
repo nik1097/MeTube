@@ -17,7 +17,7 @@ class MediaPlayer{
         }
         else{
             return "
-            <img src='$filePath' alt='Unable to display media'>
+            <img src='$filePath' class='img-fluid img-thumbnail' alt='Unable to display media'>
             ";
         }
 
