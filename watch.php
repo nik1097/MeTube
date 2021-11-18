@@ -49,8 +49,17 @@
     <button type='submit' value='$vidId' name='downloadButton'>Download</button>
     </form>";
 
-    echo "<form action='playlist.php' method='POST' >
-    <button type='submit' value='$vidId' name='playlistButton'>Playlist</button>
+    echo "<form action='addtoplaylist.php' method='POST' >";
+    $query = $con->prepare("SELECT * FROM playlist where userName = '$loggedInUserName'");
+    $query->execute();
+
+    echo "<select name='playlistname'>";
+    while($row= $query->fetch(PDO::FETCH_ASSOC)){
+        echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+    }
+    echo "</select>";
+
+    echo "<button type='submit' value='$vidId' name='playlistButton'>Add to Playlist</button>
     </form>";
 
     echo "<form action='addtofavorites.php' method='POST' >
