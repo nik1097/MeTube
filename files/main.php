@@ -6,6 +6,12 @@ require_once("files/Classes/MediaGrid.php");
 require_once("files/Classes/MediaItem.php");
 
 $loggedInUserName = "";
+$page = "";
+$category = "";
+$sortby = "";
+$keywords = "";
+$mediaTitle = "";
+
 if (isset($_SESSION["loggedinUser"])) {
     $loggedInUserName = $_SESSION["loggedinUser"];
 }
