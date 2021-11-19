@@ -3,7 +3,6 @@ require_once("files/main.php");
 
 $query = $con->prepare("SELECT * from playlist where userName = '$loggedInUserName'");
 $query->execute();
-
 if($query->rowCount()== 0){
     echo "";
 }
@@ -45,34 +44,43 @@ if(isset($_POST["createPlaylist"])){
     $playlistnamein = $_POST['playlistNamein'];
     $query = $con->prepare("INSERT INTO playlist (name, userName) VALUES ('$playlistnamein', '$loggedInUserName')");
     $query->execute();
+    echo $playlistnamein ." has been added. Please refresh the page.";
+}
+
+if(isset($_POST["deleteplaylistButton"])){
+    $deleteplaylist = $_POST['playlistname'];
+    $query = $con->prepare("DELETE FROM playlist where userName='$loggedInUserName' and name='$deleteplaylist'");
+    $query->execute();
+    echo $deleteplaylist ." has been deleted. Please refresh the page.";
 }
 
 if(isset($_POST["viewplaylistButton"])){
-    $query = $con->prepare("SELECT *
+    $playlistname = $_POST['playlistname'];
+    $query = $con->prepare("SELECT media.*
     FROM media
     JOIN playlist_media ON media.id = playlist_media.videoId
     JOIN playlist ON playlist.name = playlist_media.playlistName
-    WHERE playlistName = 'viewplaylistButton' AND userName='$loggedInUserName';");
+    WHERE playlistName = '$playlistname' AND userName='$loggedInUserName'");
     $query->execute();
-    echo "
-    <div><div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
-        <thead class='thead-dark'>
-        <tr>
-        <th>Media</th>
-        <th>Remove from Playlist</th>
-        </tr>
-    
-        </thead>
-        <tbody>";
+    echo"
+    <div>
+    $playlistname
+    <div class='table-responsive'>
+    <table class='table table-bordered table-striped table-hover'>
+    <thead class='thead-dark'>
+    <tr>
+        <th>Media Name</th>
+    </tr>
+    </thead>
+    <tbody>";
 
-    while($row=$query->fetch(PDO::FETCH_ASSOC)){
-        $mediaName= $row["title"];  
-        echo $mediaName;  
-        echo "<tr>
-        <td>button type='submit' class='btn btn-primary' name='deletefromplaylist' value='$videoId'>Delete</button>
-        </td></tr>";
-        
-    echo "</tbody></table>"; 
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        $title = $row['title'];
+        $id = $row['id'];
+        $url= 'watch.php?Id='. $row['id'];
+        echo"
+        <tr><td><a href='$url'>$title</td></tr>";
     }
+    echo "</tbody></table></div></div>";
 }
 ?>
