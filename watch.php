@@ -62,10 +62,32 @@
     echo "<button type='submit' value='$vidId' name='playlistButton'>Add to Playlist</button>
     </form>";
 
-    echo "<form action='addtofavorites.php' method='POST' >
-    <button type='submit' value='$vidId' name='favoriteButton'>Favorite</button>
-    </form>";
+    $checkquery = $con -> prepare("SELECT * from favorites where userName='$loggedInUserName' and videoId = '$vidId'");
+    $checkquery -> execute();
+    if($checkquery->rowCount()==0){
+         echo "<form action='addtofavorites.php' method='GET' >
+                <button type='submit' value='$vidId' name='Id'>Add to Favorite</button>
+              </form>";
 
+    }
+    else{
+        echo "<form action='removeFromFavorite.php' method='GET' >
+                <button type='submit' value='$vidId' name='Id'>Remove from Favorite</button>
+              </form>";
+
+    }
+
+    if (isset($_GET["add"]) && $_GET["add"] == 'success') {
+        echo "<div class='badge'>
+                 <p style = 'color:red'>Successfully added to Favorite!</p>
+              </div>";
+    }
+
+    if (isset($_GET["delete"]) && $_GET["delete"] == 'success') {
+        echo "<div class='badge'>
+                <p style = 'color:red'>Successfully removed From Favorite!</p>
+              </div>";
+    }
 ?> 
 </div>
 

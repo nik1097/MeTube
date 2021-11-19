@@ -71,6 +71,12 @@ class MediaGrid
         return $this->createBlock("Shared ".$type."s", $gridItems);
     }
 
+    public function createMyFavoriteContentBlock($type, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    {
+        $gridItems = $this->getFavorite($type, $sortBy, $loggedInUserName);
+        return $this->createBlock("My Favorite ".$type."s", $gridItems);
+    }
+
     public function create($page, $category, $keywords, $sortBy, $loggedInUserName, $videoId = 1, $hide = 'not hidden')
     {
         if ($page == 'Home') {
@@ -96,6 +102,11 @@ class MediaGrid
 
         if ($page == 'MyList') {
 
+        }
+
+        if ($page == 'Favorite') {
+            return $this->createMyFavoriteContentBlock('video', $sortBy, $loggedInUserName)
+                  .$this->createMyFavoriteContentBlock('image', $sortBy, $loggedInUserName);
         }
     }
 
