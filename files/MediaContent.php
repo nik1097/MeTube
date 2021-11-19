@@ -1,20 +1,17 @@
 <?php
-    $page = "";
     if(isset($_GET["page"])){
         $page = $_GET["page"];
     }
 
-    $category = "";
     if(isset($_GET["category"])){
         $category = $_GET["category"];
     }
 
-    $sortby = "";
+
     if(isset($_GET["sortby"])){
         $sortby = $_GET["sortby"];
     }
 
-    $keywords = "";
     if(isset($_GET["keywords"])){
         $keywords = $_GET["keywords"];
     }
@@ -30,6 +27,8 @@
 //    }
 //    else{
         $mediaGrid= new MediaGrid($con);
+        echo "<div> '$category' '$sortby'</div>";
+
         echo $mediaGrid->create($page, $category, $keywords, $sortby, $loggedInUserName);
     //}
     ?>

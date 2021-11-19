@@ -13,17 +13,17 @@ class MediaGrid
     {
         $filter = "";
         if ($hide != 'hidden') {
-            $filter = "<div class='right'>
-                        <span>Order by:</span>
-                        <a href='http://localhost/MeTube/search.php?term=&orderBy=uploadDate'>Upload Date</a>
-                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Views'>Most Viewed</a>
-                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Title'>Sort by Title</a>
-                    </div>";
+//            $filter = "<div class='right'>
+//                        <span>Order by:</span>
+//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=uploadDate'>Upload Date</a>
+//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Views'>Most Viewed</a>
+//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Title'>Sort by Title</a>
+//                    </div>";
             return "<div class='videoGridHeader'> 
                 <div class='left'>
                     $title
                 </div>
-                $filter
+<!--                $filter -->
         </div>";
         }
     }
@@ -37,63 +37,63 @@ class MediaGrid
                 </div>";
     }
 
-    public function createHomeContentBlock($type, $category, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    public function createHomeContentBlock($type, $category, $sortby, $loggedInUserName, $hide = 'not hidden')
     {
         if ($loggedInUserName == "") {
-            $gridItems = $this->getAllItemsVisitor($type, $category, $sortBy, 'Public');
+            $gridItems = $this->getAllItemsVisitor($type, $category, $sortby, 'Public');
             return $this->createBlock($type."s", $gridItems);
         } else {
-            $gridItems = $this->getPublicItemsUser($type, $category, $sortBy, 'Public', $loggedInUserName);
+            $gridItems = $this->getPublicItemsUser($type, $category, $sortby, 'Public', $loggedInUserName);
             return $this->createBlock($type."s", $gridItems);
         }
     }
 
-    public function createSearchContentBlock($type, $keywords, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    public function createSearchContentBlock($type, $keywords, $sortby, $loggedInUserName, $hide = 'not hidden')
     {
         if ($loggedInUserName == "") {
-            $gridItems = $this->getKeywordsItemsVisitor($type, $keywords, $sortBy, 'Public');
+            $gridItems = $this->getKeywordsItemsVisitor($type, $keywords, $sortby, 'Public');
             return $this->createBlock($type."s from '".$keywords."'", $gridItems);
         } else {
-            $gridItems = $this->getKeywordsItemsUser($type, $keywords, $sortBy, 'Public', $loggedInUserName);
+            $gridItems = $this->getKeywordsItemsUser($type, $keywords, $sortby, 'Public', $loggedInUserName);
             return $this->createBlock($type."s from '".$keywords."'", $gridItems);
         }
     }
 
-    public function createMyMediaContentBlock($type, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    public function createMyMediaContentBlock($type, $sortby, $loggedInUserName, $hide = 'not hidden')
     {
-        $gridItems = $this->getMyMedia($type, $sortBy, $loggedInUserName);
+        $gridItems = $this->getMyMedia($type, $sortby, $loggedInUserName);
         return $this->createBlock("My ".$type."s", $gridItems);
     }
 
-    public function createMySharedContentBlock($type, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    public function createMySharedContentBlock($type, $sortby, $loggedInUserName, $hide = 'not hidden')
     {
-        $gridItems = $this->getSharedMedia($type, $sortBy, $loggedInUserName);
+        $gridItems = $this->getSharedMedia($type, $sortby, $loggedInUserName);
         return $this->createBlock("Shared ".$type."s", $gridItems);
     }
 
-    public function createMyFavoriteContentBlock($type, $sortBy, $loggedInUserName, $hide = 'not hidden')
+    public function createMyFavoriteContentBlock($type, $sortby, $loggedInUserName, $hide = 'not hidden')
     {
-        $gridItems = $this->getFavorite($type, $sortBy, $loggedInUserName);
+        $gridItems = $this->getFavorite($type, $sortby, $loggedInUserName);
         return $this->createBlock("My Favorite ".$type."s", $gridItems);
     }
 
-    public function create($page, $category, $keywords, $sortBy, $loggedInUserName, $videoId = 1, $hide = 'not hidden')
+    public function create($page, $category, $keywords, $sortby, $loggedInUserName, $videoId = 1, $hide = 'not hidden')
     {
         if ($page == 'Home') {
-            return $this->createHomeContentBlock('video', $category, $sortBy, $loggedInUserName, $hide = 'not hidden')
-                . $this->createHomeContentBlock('image', $category, $sortBy, $loggedInUserName, $hide = 'not hidden');
+            return $this->createHomeContentBlock('video', $category, $sortby, $loggedInUserName, $hide = 'not hidden')
+                . $this->createHomeContentBlock('image', $category, $sortby, $loggedInUserName, $hide = 'not hidden');
         }
 
         if ($page == 'MyChannel') {
-            return $this->createMyMediaContentBlock('video',  $sortBy, $loggedInUserName, $hide = 'not hidden')
-                . $this->createMyMediaContentBlock('image',  $sortBy, $loggedInUserName, $hide = 'not hidden')
-                . $this->createMySharedContentBlock('video',  $sortBy, $loggedInUserName, $hide = 'not hidden')
-                . $this->createMySharedContentBlock('image',  $sortBy, $loggedInUserName, $hide = 'not hidden');
+            return $this->createMyMediaContentBlock('video',  $sortby, $loggedInUserName, $hide = 'not hidden')
+                . $this->createMyMediaContentBlock('image',  $sortby, $loggedInUserName, $hide = 'not hidden')
+                . $this->createMySharedContentBlock('video',  $sortby, $loggedInUserName, $hide = 'not hidden')
+                . $this->createMySharedContentBlock('image',  $sortby, $loggedInUserName, $hide = 'not hidden');
         }
 
         if ($page == 'Search') {
-            return $this->createSearchContentBlock('video', $keywords, $sortBy, $loggedInUserName, $hide = 'not hidden')
-                . $this->createSearchContentBlock('image', $keywords, $sortBy, $loggedInUserName, $hide = 'not hidden');
+            return $this->createSearchContentBlock('video', $keywords, $sortby, $loggedInUserName, $hide = 'not hidden')
+                . $this->createSearchContentBlock('image', $keywords, $sortby, $loggedInUserName, $hide = 'not hidden');
         }
 
         if ($page == 'Recommendation') {
@@ -105,8 +105,8 @@ class MediaGrid
         }
 
         if ($page == 'Favorite') {
-            return $this->createMyFavoriteContentBlock('video', $sortBy, $loggedInUserName)
-                  .$this->createMyFavoriteContentBlock('image', $sortBy, $loggedInUserName);
+            return $this->createMyFavoriteContentBlock('video', $sortby, $loggedInUserName)
+                  .$this->createMyFavoriteContentBlock('image', $sortby, $loggedInUserName);
         }
     }
 
@@ -121,8 +121,6 @@ class MediaGrid
 
         $query = $this->con->prepare("SELECT * FROM media where media.category = '$mediaCategory' and media.uploadedBy != '$mediaOwner' 
                                     and privacy = 'Public' order by rand() limit 4");
-
-        //$query = $this->con->prepare("SELECT * FROM media where privacy = '$privacy' order by rand() limit 4");
         $query->execute();
 
         $element = "";
@@ -141,7 +139,7 @@ class MediaGrid
             $sqlString .= "and media.category = '$category'";
         }
         if ($sortby != "") {
-            $sqlString .= "order by '$sortby'";
+            $sqlString .= "order by media.$sortby desc";
         }
 
         $query = $this->con->prepare($sqlString);
@@ -163,10 +161,10 @@ class MediaGrid
                                     left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName' 
                                     where media.privacy='$privacy' and media.mediaType = '$type' and (status!='Blocked' or status is NULL)";
         if ($category != "") {
-            $sqlString .= "and media.category = '$category'";
+            $sqlString .= " and media.category = '$category'";
         }
         if ($sortby != "") {
-            $sqlString .= "order by '$sortby'";
+            $sqlString .= " order by media.$sortby desc";
         }
 
         $query = $this->con->prepare($sqlString);
@@ -189,7 +187,7 @@ class MediaGrid
                       where media.privacy='$privacy' and media.mediaType = '$type' and keywords.keyword = '$keywords'";
 
         if ($sortby != "") {
-            $sqlString .= "order by '$sortby'";
+            $sqlString .= "order by media.$sortby desc";
         }
 
         $query = $this->con->prepare($sqlString);
@@ -213,7 +211,7 @@ class MediaGrid
                       where media.privacy='$privacy' and media.mediaType = '$type' and (status!='Blocked' or status is NULL) and keywords.keyword = '$keywords'";
 
         if ($sortby != "") {
-            $sqlString .= "order by '$sortby'";
+            $sqlString .= "order by media.$sortby desc";
         }
 
         $query = $this->con->prepare($sqlString);
@@ -229,10 +227,14 @@ class MediaGrid
         return $element;
     }
 
-    public function getMyMedia($type, $sortBy, $loggedInUserName)
+    public function getMyMedia($type, $sortby, $loggedInUserName)
     {
+        $sqlString = "SELECT * FROM media where uploadedBy = '$loggedInUserName' and media.mediaType = '$type'";
 
-        $query = $this->con->prepare("SELECT * FROM media where uploadedBy = '$loggedInUserName' and media.mediaType = '$type'");
+        if ($sortby != "") {
+            $sqlString .= "order by media.$sortby desc";
+        }
+        $query = $this->con->prepare($sqlString);
         $query->execute();
 
         $element = "";
@@ -244,12 +246,17 @@ class MediaGrid
         return $element;
     }
 
-    public function getFavorite($type, $sortBy, $loggedInUserName)
+    public function getFavorite($type, $sortby, $loggedInUserName)
     {
-        $query = $this->con->prepare("SELECT media.* FROM media 
+        $sqlString = "SELECT media.* FROM media 
                                     inner join favorites on media.id=favorites.videoId 
                                     where favorites.userName='$loggedInUserName'
-                                    and media.mediaType = '$type'");
+                                    and media.mediaType = '$type'";
+
+        if ($sortby != "") {
+            $sqlString .= "order by media.$sortby desc";
+        }
+        $query = $this->con->prepare($sqlString);
         $query->execute();
 
         $element = "";
@@ -261,15 +268,20 @@ class MediaGrid
         return $element;
     }
 
-    public function getSharedMedia($type, $sortBy, $loggedInUserName)
+    public function getSharedMedia($type, $sortby, $loggedInUserName)
     {
-        $query = $this->con->prepare("SELECT media.* FROM media inner join contact on media.uploadedBy=contact.userName 
+        $sqlString = "SELECT media.* FROM media inner join contact on media.uploadedBy=contact.userName 
                                 where contactUserName='$loggedInUserName' 
                                 and media.mediaType = '$type'
                                 and ((contactType='Family' and media.privacy='Family') 
                                      or (contactType='Friend' and media.privacy='Friend') 
                                      or (contactType='Fav' and media.privacy='Fav')) 
-                                and status = 'Not Blocked'");
+                                and status = 'Not Blocked'";
+
+        if ($sortby != "") {
+            $sqlString .= "order by media.$sortby desc";
+        }
+        $query = $this->con->prepare($sqlString);
 
         $query->execute();
 

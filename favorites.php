@@ -1,10 +1,6 @@
-<?php require_once("files/main.php") ?>
-
-<div class='videoSection'>
-    <?php
-    if($loggedInUserName!=""){
-        $mediaGrid= new MediaGrid($con);
-       echo $mediaGrid->create('Favorite', "", "","", $loggedInUserName);
-    }
-    ?>
-</div>
+<?php
+    require_once("files/main.php") ;
+    $mediaTitle = "Favorite List";
+    $page = 'Favorite';
+    require_once("files/MediaOrder.php")
+?>
