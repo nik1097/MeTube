@@ -6,42 +6,43 @@ class MessagingClass{
     }
     public function getAllUserstoMessage($userName){
         try{
-            $query = $this->con->prepare("select * from users where userName != '$userName'");
+            $query = $this->con->prepare("SELECT * from users where userName != '$userName'");
             $query->execute();
             if($query->rowCount()== 0){
                 return "";
             }
             else{
+
                 $html = "
                 <div><div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
                         <thead class='thead-dark'>
                         <tr>
                         <th>Username</th>
-                        <th>Email</th>
-                        <th>Messaging</th>
+                        <th>Message</th>
+                        <th>Send Message</th>
                         </tr>
                     
                         </thead>
-                        <tbody>";
+                        <tbody><tr><td>";
 
-                while($row=$query->fetch(PDO::FETCH_ASSOC)){
-                    $userName= $row["userName"];
-                    $email= $row["emailId"];
-                    $html.=  "<tr><td>$userName</td>";
-                    $html.=  "<td>$email</td>";
-                    
-                    $html.=  "<td> <div style='padding-bottom:10px;'>
-                    <form action='message.php' method='POST'>
-                    <input type='text' name='msg' placeholder='enter your message'>
-                    <button type='submit' class='btn btn-primary' name='messageButton' value='$userName'>Message</button>
-                    </form>
-                    </div></td></tr>";
+                $html.= "<div style='padding-bottom:10px;'>
+                
+                <form action='message.php' method='POST'>
+                <select name='recipient'>";
+                while($row= $query->fetch(PDO::FETCH_ASSOC)){
+                    $html.= "<option value='" . $row['userName'] . "'>" . $row['userName'] . "</option>";
                 }
+                $html.= "</select></td>
+                <td><textarea rows = '7' cols = '90' name = 'msg' placeholder='enter your message'></textarea></td>
+                <td><button type='submit' class='btn btn-primary' name='messageButton' value='$userName'>Message</button></td>
+                </form>
+                </div></td></tr>";
 
                 $html.="</tbody>
                 </table></div>
                 <form action='message.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='viewMessage' value='$userName'>View Message</button>
+                    <button type='submit' class='btn btn-primary' name='inbox' value='$userName'>Inbox</button>
+                    <button type='submit' class='btn btn-primary' name='sent' value='$userName'>Sent</button>
                     </form>
                 
                 </div>";
@@ -53,13 +54,18 @@ class MessagingClass{
         }
     }
     public function sendMessage($loggedInUserName, $recipient, $msg){
-        echo "You can view your messages by clicking the view button";
+        echo "Message has been delivered";
         $query = $this->con->prepare("INSERT INTO messages(sentBy, sentTo, message) VALUES('$loggedInUserName', '$recipient', '$msg')");
         $query->execute();
     }
 
-    public function viewMessage($loggedInUserName){
-        $query = $this->con->prepare("select * from messages where sentBy = '$loggedInUserName' or sentTo = '$loggedInUserName'");
+    public function viewMessage($loggedInUserName, $var){
+        if ($var == 'Sent By'){
+            $query = $this->con->prepare("select * from messages where sentTo = '$loggedInUserName'");
+        }
+        else if($var == 'Sent To'){
+            $query = $this->con->prepare("select * from messages where sentBy = '$loggedInUserName'");
+        }
         $query->execute();
         if($query->rowCount()== 0){
                 return "";

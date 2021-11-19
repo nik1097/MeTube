@@ -23,11 +23,18 @@ require_once("files/Classes/messagingClass.php");
     }
 ?>
 <?php
+
 	if(isset($_POST["messageButton"])){
-		$resultKey = $messagingClass->sendMessage($loggedInUserName, $_POST["messageButton"], $_POST["msg"]);
+        $recipient = $_POST['recipient'];
+		$resultKey = $messagingClass->sendMessage($loggedInUserName, $recipient, $_POST["msg"]);
 	}
-    else if(isset($_POST["viewMessage"])){
-        $resultKey = $messagingClass->viewMessage($loggedInUserName);
+    else if(isset($_POST["inbox"])){
+        $var = 'Sent By';
+        $resultKey = $messagingClass->viewMessage($loggedInUserName, $var);
+    }
+    else if(isset($_POST["sent"])){
+        $var = 'Sent To';
+        $resultKey = $messagingClass->viewMessage($loggedInUserName, $var);
     }
 
 ?>
