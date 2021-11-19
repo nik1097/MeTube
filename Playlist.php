@@ -13,30 +13,22 @@ else{
             <thead class='thead-dark'>
             <tr>
             <th>Playlist Name</th>
-            <th>View</th>
             </tr>
         
             </thead>
-            <tbody>";
-
-    while($row=$query->fetch(PDO::FETCH_ASSOC)){
+            <tbody><tr><td>
+            <form action='playlist.php' method='POST'>";
         
-        $playlistName= $row["name"];
-        $html.=  "<tr><td>$playlistName</td>";
-        
-        $html.=  "<td> <div style='padding-bottom:5px;'>
-        <form action='playlist.php' method='POST'>
-        <button type='submit' class='btn btn-primary' name='viewplaylistButton' value='$playlistName'>Click to View</button>
-        </form>
-        </div></td>";
-
-        //$html.=  "<td> <div style='padding-bottom:5px;'>
-        //<form action='playlist.php' method='POST'>
-        //<button type='submit' class='btn btn-primary' name='deleteplaylistButton' value='$playlistName'>Delete</button>
-        //</form>
-        //</div></td></tr>";
+    $html.= "<select name='playlistname'>";
+    while($row= $query->fetch(PDO::FETCH_ASSOC)){
+        $html.= "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
     }
-}
+    $html.="</select></td>
+    <td><button type='submit' class='btn btn-primary' name='viewplaylistButton' value='name'>View Playlist</button></td>
+    <td><button type='submit' class='btn btn-primary' name='deleteplaylistButton' value='name'>Delete Playlist</button></td>
+    </form>
+    </div></tr>";
+
     $html.="</tbody>
     </table></div>
     <p1>Create A New Playlist</p1>
@@ -47,44 +39,40 @@ else{
     
     </div>";
     echo $html;
-
+}
 if(isset($_POST["createPlaylist"])){
 
     $playlistnamein = $_POST['playlistNamein'];
-    echo $playlistnamein;
     $query = $con->prepare("INSERT INTO playlist (name, userName) VALUES ('$playlistnamein', '$loggedInUserName')");
     $query->execute();
 }
 
-//if(isset($_POST["deleteplaylistButton"])){
-
-    //$playlistname = $_POST['playlistName'];
-    //$query = $con->prepare("DELETE FROM playlist_media WHERE playlistName = '$playlistName'");
-    //$query->execute();
-    //$query = $con->prepare("DELETE FROM playlist WHERE name = '$playlistName'");
-    //$query->execute();
-
-//}
-
-
-//echo $vidId;
-
-//if(isset($_POST["addtoplaylistButton"])){
-//echo $vidId;
-//$checkquery = $con -> prepare("SELECT * FROM playlist inner join playlist_media 
-//on playlist.name = playlist_media.playlistName
-//where userName = '$loggedInUserName' and videoId = '$vidId' and playlistName = '$playlistName'");
-
-//$checkquery -> execute();
-//if($checkquery->rowCount()==0){
+if(isset($_POST["viewplaylistButton"])){
+    $query = $con->prepare("SELECT *
+    FROM media
+    JOIN playlist_media ON media.id = playlist_media.videoId
+    JOIN playlist ON playlist.name = playlist_media.playlistName
+    WHERE playlistName = 'viewplaylistButton' AND userName='$loggedInUserName';");
+    $query->execute();
+    echo "
+    <div><div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
+        <thead class='thead-dark'>
+        <tr>
+        <th>Media</th>
+        <th>Remove from Playlist</th>
+        </tr>
     
-  //  $query = $con -> prepare("INSERT INTO playlist_media ('playlistName', 'videoId') VALUES ('$playlistName','$vidId',)");
-    //$query->execute();
-    //echo "Video has been added to playlist";
-//}
-//else{
-  //  echo"Video is already in playlist";
-//}
-//}
+        </thead>
+        <tbody>";
 
+    while($row=$query->fetch(PDO::FETCH_ASSOC)){
+        $mediaName= $row["title"];  
+        echo $mediaName;  
+        echo "<tr>
+        <td>button type='submit' class='btn btn-primary' name='deletefromplaylist' value='$videoId'>Delete</button>
+        </td></tr>";
+        
+    echo "</tbody></table>"; 
+    }
+}
 ?>
