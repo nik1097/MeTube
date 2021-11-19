@@ -4,7 +4,7 @@
     <?php
     if($loggedInUserName!=""){
         $mediaGrid= new MediaGrid($con);
-        echo $mediaGrid->create(null, "My Channel", $loggedInUserName);
+        echo $mediaGrid->create('MyChannel', "", "","", $loggedInUserName);
     }
     ?>
 </div>

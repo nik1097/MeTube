@@ -45,7 +45,7 @@ $loggedInUser = new UserDetails($con, $loggedInUserName);
     <button class="btn hamburgermenu">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="index.php"><i class="fab fa-youtube fa-lg" style="color:red;"></i> Metube</a>
+    <a class="navbar-brand" href="index.php?page=Home"><i class="fab fa-youtube fa-lg" style="color:red;"></i> Metube</a>
     <button class="navbar-toggler btn " type="button" data-toggle="collapse" data-target="#navbar-collapse-content"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         Menu <i class="fas fa-caret-square-down"></i>
@@ -55,7 +55,7 @@ $loggedInUser = new UserDetails($con, $loggedInUserName);
 
         <form class="form-inline my-2 my-lg-0 mr-auto search-bar" action="search.php" method="GET">
             <input class="form-control mr-sm-2 search" list="datalist" onkeyup="ac(this.value)" type="search"
-                   placeholder="Search" aria-label="Search" name="term">
+                   placeholder="Search" aria-label="Search" name="keywords">
             <button class="btn btn-dark my-2 my-sm-0" type="submit">Search <i class="fab fa-searchengin"></i></button>
         </form>
 
@@ -63,7 +63,7 @@ $loggedInUser = new UserDetails($con, $loggedInUserName);
         if ($loggedInUserName != "") {
             echo "<ul class='navbar-nav'>
       <li class='nav-item'>
-      <a class='text-danger nav-link' href='index.php'>" . $loggedInUser->getuserName() . " </a>
+      <a class='text-danger nav-link' href='channels.php'>" . $loggedInUser->getuserName() . " </a>
       </li>
       <li class='nav-item'>
          <a class='nav-link' href='upload.php'>Upload <i class='fas fa-upload'></i></a>
@@ -92,12 +92,12 @@ $loggedInUser = new UserDetails($con, $loggedInUserName);
     <div class="sidebar-menu">
         <ul style="list-style-type:none;">
             <li class='nav-item'>
-                <a href='index.php'>Home</a>
+                <a href='index.php?page=Home'>Home</a>
             </li>
-            <li class='nav-item'>
-
-                <a href='CategorySearch.php'>Search by Category</a>
-            </li>
+<!--            <li class='nav-item'>-->
+<!---->
+<!--                <a href='CategorySearch.php'>Search by Category</a>-->
+<!--            </li>-->
             <?php
             if ($loggedInUserName != "") {
                 echo "<li class='nav-item'>

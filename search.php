@@ -1,14 +1,9 @@
 <?php require_once("files/main.php") ?>
+<?php
+    if(!isset($_GET["page"])){
+        //$keywords = $_GET["term"];
+        header("location:search.php?page=Search&keywords=".$_GET["keywords"]);
+    }
 
-<div class='videoSection'>
-    <?php
-    if($loggedInUserName==""){
-        $videoGrid= new MediaGrid($con);
-        echo $videoGrid->create(null, "Other", true, $loggedInUserName);
-    }
-    else{
-        $videoGrid= new MediaGrid($con);
-        echo $videoGrid->create(null, "Recommended", true, $loggedInUserName);
-    }
-    ?>
-</div>
+?>
+<?php require_once("files/MediaContent.php") ?>

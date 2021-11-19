@@ -33,7 +33,7 @@
     <div class= "suggestions">
         <?php
             $mediaGrid= new MediaGrid($con);
-            echo $mediaGrid->create(null, "Suggestions", $loggedInUserName, $hide='hidden');
+            echo $mediaGrid->create('Recommendation', "", "","", $loggedInUserName, $vidId);
         ?>
 
     </div>
