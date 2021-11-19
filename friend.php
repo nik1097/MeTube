@@ -26,19 +26,14 @@ require_once("files/Classes/StatusMessage.php");
 
 	<?php
 		if(isset($_POST["friendsButton"])){
-    		$resultKey = $friendsClass->makefriends($loggedInUserName, $_POST["friendsButton"],'Friend');
-    	}
-    	else if(isset($_POST["familyButton"])){
-    		$resultKey = $friendsClass->makefriends($loggedInUserName, $_POST["familyButton"],'Family');
-    	}
-    	else if(isset($_POST["favoriteButton"])){
-    		$resultKey = $friendsClass->makefriends($loggedInUserName, $_POST["favoriteButton"],'Fav');
+			$relation = $_POST['relation'];
+			$person = $_POST['person'];
+    		$resultKey = $friendsClass->makefriends($loggedInUserName,$person, $relation);
     	}
         else if(isset($_POST["blockButton"])){
-            $resultKey = $friendsClass->blockfriends($loggedInUserName, $_POST["blockButton"],'Blocked');
-        }
-        else if(isset($_POST["unblockButton"])){
-            $resultKey = $friendsClass->blockfriends($loggedInUserName, $_POST["unblockButton"],'Not Blocked');
+        	$relation = $_POST['block'];
+			$person = $_POST['person'];
+            $resultKey = $friendsClass->blockfriends($loggedInUserName, $person, $relation);
         }
    	?>
 

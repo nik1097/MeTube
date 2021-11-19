@@ -18,46 +18,42 @@ class FriendsClass{
                         <thead class='thead-dark'>
                         <tr>
                         <th>Username</th>
-                        <th>Email</th>
                         <th>Relationship</th>
                         <th>Block</th>
+
                         </tr>
                     
                         </thead>
-                        <tbody>";
+                        <tbody><tr><td>";
 
-                while($row=$query->fetch(PDO::FETCH_ASSOC)){
-                    $userName=$row["userName"];
-                    $email=$row["emailId"];
-                    $html.=  "<tr><td>$userName</td>";
-                    $html.=  "<td>$email</td>";
-                    
-                    $html.=  "<td> <div style='padding-bottom:10px;'>
-                    <form action='friend.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='friendsButton' value='$userName'>Friends</button>
-                    </form>
-                    <form action='friend.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='familyButton' value='$userName'>Family</button>
-                    </form>
-                    <form action='friend.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='favoriteButton' value='$userName'>Favourite</button>
-                    </form>
-                    </div></td>
+                $html.= "<div style='padding-bottom:10px;'>
+                
+                <form action='friend.php' method='POST'>
+                <select name='person'>";
+                while($row= $query->fetch(PDO::FETCH_ASSOC)){
+                    $html.= "<option value='" . $row['userName'] . "'>" . $row['userName'] . "</option>";
+                }
 
-                    <td><div style='padding-bottom:10px;'>
-                    <form action='friend.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='blockButton' value='$userName'>Block</button>
-                    </form>
-                    <form action='friend.php' method='POST'>
-                    <button type='submit' class='btn btn-primary' name='unblockButton' value='$userName'>Unblock</button>
-                    </form>
-                    </div></td></tr>
-                    ";
-                 }
-                 $html.="</tbody>
-                 </table></div>
+                $html.= "</select></td>
+                <td><select name='relation'>
+                    <option value='Family'>Family</option>
+                    <option value='Friend'>Friend</option>
+                    <option value='Fav'>Favourite</option>
+                </select>
+                <button type='submit' class='btn btn-primary' name='friendsButton' value='$userName'>Confirm</button>
+                </div></td>
+                <td><select name='block'>
+                    <option value='Blocked'>Block</option>
+                    <option value='Not Blocked'>Unblock</option>
+                </select>
+                <button type='submit' class='btn btn-primary' name='blockButton' value='$userName'>Confirm</button>
+                </div></td>
+
+
+                </tr></form>
+                </tbody></table></div>
                 </div>";
-                 return $html;
+                return $html;
             }
         }
         catch(Exception $e){
@@ -79,6 +75,7 @@ class FriendsClass{
 	        $query->execute();
     	}
     }
+    
     public function blockfriends($userName, $friendName, $relationType){
         echo "You have " .$relationType. " user " . $friendName;
 
