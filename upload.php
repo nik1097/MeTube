@@ -97,7 +97,7 @@ require_once("files/main.php");
     </div>
     <br>
     <button class="btn btn btn-primary" value="upload" name="upload" type="submit" />Upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn btn-secondary" onclick="location.href='index.php';" type="button" >Cancel</button>
+    <button class="btn btn btn-secondary" onclick="location.href='index.php?page=Home';" type="button" >Cancel</button>
 
 </form>
 

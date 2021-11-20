@@ -3,7 +3,7 @@
 
     $playlistname =  $_POST['playlistname'];
     $vidId = $_POST['playlistButton'];
-
+    header("Refresh: 1;URL=watch.php?Id=$vidId");
     $checkquery = $con->prepare("SELECT * from playlist inner join playlist_media on name = playlistName where userName = '$loggedInUserName' and videoId = '$vidId'");
     $checkquery->execute();
 
@@ -15,4 +15,5 @@
     else{
     	echo "Video already exists in playlist";
     }
- ?>
+
+?>

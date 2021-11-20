@@ -118,15 +118,15 @@
 
 if($loggedInUserName!=""){
     echo "<div class='commentSection' style='margin-right:425px;'>
-    <form action='watch.php' method='POST' style='padding-top:20px' >
-        <div class='input-group'>
-        <input type='text' id='comment' name='comment' required placeholder='your comment' class='form-control' >
-        <div class='input-group-append'>
-        <button class='btn btn-primary' type='submit' value='$vidId' name='postComment'>Post</button>
-        </div>
-        </div>
-        </form>
-    </div>";
+               <form action='watch.php' method='POST' style='padding-top:20px' >
+                <div class='input-group'>
+                    <input type='text' id='comment' name='comment' required placeholder='your comment' class='form-control' >
+                    <div class='input-group-append'>
+                        <button class='btn btn-primary' type='submit' value='$vidId' name='postComment'>Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>";
 }
 
 ?>
