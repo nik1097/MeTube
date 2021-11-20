@@ -2,6 +2,7 @@
 require_once("files/connection.php");
 require_once("files/main.php");
 
+
 $filename = $_FILES["mediaFile"]["name"];
 $title = $_POST["title"];
 $description = $_POST['description'];
@@ -13,8 +14,12 @@ $keyword_arr = explode(',', $keywords);
 $videoExts = array("video/mp4");
 $imageExts = array("image/pjpeg", "image/gif", "image/jpeg");
 $audioExts = array("audio/mp3", "audio/wma");
-
-$extension = pathinfo($_FILES['mediaFile']['name'], PATHINFO_EXTENSION);
+$mediaId = 0;
+//$extension = pathinfo($_FILES['mediaFile']['name'], PATHINFO_EXTENSION);
+$extension = $_FILES["mediaFile"]["type"];
+$mediaType = explode('/', $extension);
+$mediaType = $mediaType[0];
+$size = $_FILES['mediaFile']['size'];
 $username = $_SESSION["loggedinUser"];
 $file_path = 'uploads/'.$username.'/';
 
@@ -26,16 +31,19 @@ if (!file_exists($file_path)) {
 
 if($_FILES["mediaFile"]["error"] > 0 ) {
     echo "<h1> error:".$_FILES["mediaFile"]["error"] ."</h1>";
-    //header("Location: index.php");
+    header("Refresh: 2;URL=upload.php?");
     exit;
 }
 
-$upload_file = $file_path.urlencode($filename);
-
+$upload_file = $file_path.$filename; //urlencode work on GET, POST can contain special characters
 if(file_exists($upload_file))
 {
-    echo "File already exists";
-    header("Location: upload.php");
+    echo $extension."<br>";
+    echo $mediaType."<br>";
+    echo $size;
+    echo "File".$upload_file." already exists";
+    header("Refresh: 200;upload.php?file_exist=true");
+    //header("location:upload.php?file_exist=true");
     exit;
 }
 
@@ -44,16 +52,24 @@ try{
         $upload_file);
     echo "Stored in: " . $file_path;
     chmod($upload_file, 0644);
-    $query = $con->prepare("INSERT INTO videos(description,uploadedBy,title, category, privacy, keywords, filepath, duration, views) 
-                    VALUES('$description','$username','$title', '$category', '$visibility', '$keyword_arr[0]', '$upload_file', '00:00',0)");
+    $query = $con->prepare("INSERT INTO media(mediaType, title, description, category, privacy, filepath, file_extension, mediaSize, uploadedBy, views) 
+                    VALUES('$mediaType', '$title', '$description','$category','$visibility', '$upload_file', '$extension', '$size','$username', 0)");
     $query->execute();
-//    if($query->rowCount() ==1){
-//        return true;
-//    }
-//    else{
-//        array_push($this->errorMessages,StatusMessage::$loginFailed);
-//        return false;
-//    }
+    //get the media id just added to database
+    $query = $con->prepare("SELECT id FROM media order by id desc limit 1");
+    $query->execute();
+
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    $mediaId = $row['id'];
+
+    if ($keywords != "") {
+        for ($i = 0; $i < count($keyword_arr); $i++) {
+            $key = $keyword_arr[$i];
+            echo "$key"."<br>";
+            $query = $con->prepare("INSERT INTO keywords(keyword, media_id) VALUES('$key', '$mediaId')");
+            $query->execute();
+        }
+    }
 }
 catch(Exception $e){
     echo"Some Error Occured: ".$e->getMessage();
@@ -76,5 +92,5 @@ catch(Exception $e){
 //    header("Location: upload.php");
 //    exit;
 //}
-header("Location: upload.php");
+header("Refresh: 20;URL=upload.php?");
 ?>

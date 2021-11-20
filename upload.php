@@ -1,20 +1,17 @@
 <?php
 require_once("files/connection.php");
 require_once("files/main.php");
-
 ?>
 
-<!DOCTYPE html>
-
-<head>
-    <title></title>
-</head>
-
-<body>
 
 <form action="upload_process.php" method="POST" enctype="multipart/form-data">
 
     <div class="mb-3">
+        <?php
+            if(isset($_GET["file_exist"])) {
+                echo "<p style='color: Red'> File exists! Please upload again</p>";
+            }
+        ?>
         <label for="formFile" class="form-label">Select a media file to upload</label>
         <input class="form-control" type="file" id="formFile" name = 'mediaFile' required>
     </div>
@@ -100,6 +97,3 @@ require_once("files/main.php");
     <button class="btn btn btn-secondary" onclick="location.href='index.php?page=Home';" type="button" >Cancel</button>
 
 </form>
-
-</body>
-</html>
