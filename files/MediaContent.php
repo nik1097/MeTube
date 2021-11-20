@@ -7,6 +7,9 @@
         $category = $_GET["category"];
     }
 
+    if ($category == "All") {
+        $category = "";
+    }
 
     if(isset($_GET["sortby"])){
         $sortby = $_GET["sortby"];
@@ -27,7 +30,7 @@
 //    }
 //    else{
         $mediaGrid= new MediaGrid($con);
-        echo "<div> '$category' '$sortby'</div>";
+        //echo "<div> '$category' '$sortby'</div>";
 
         echo $mediaGrid->create($page, $category, $keywords, $sortby, $loggedInUserName);
     //}
