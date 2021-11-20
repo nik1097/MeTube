@@ -45,6 +45,7 @@ if(isset($_POST["createPlaylist"])){
     $query = $con->prepare("INSERT INTO playlist (name, userName) VALUES ('$playlistnamein', '$loggedInUserName')");
     $query->execute();
     echo $playlistnamein ." has been added. Please refresh the page.";
+    header("location:playlist.php");
 }
 
 if(isset($_POST["deleteplaylistButton"])){
@@ -52,6 +53,7 @@ if(isset($_POST["deleteplaylistButton"])){
     $query = $con->prepare("DELETE FROM playlist where userName='$loggedInUserName' and name='$deleteplaylist'");
     $query->execute();
     echo $deleteplaylist ." has been deleted. Please refresh the page.";
+    header("location:playlist.php");
 }
 
 if(isset($_POST["viewplaylistButton"])){

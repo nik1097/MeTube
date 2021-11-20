@@ -3,7 +3,7 @@
 
     $vidId=$_POST['downloadButton'];
     //$query=$con->prepare("select filepath from videos where id='$vidId'");
-    $query=$con->prepare("select file_path from media where media_id='$vidId'");
+    $query=$con->prepare("select filepath from media where id='$vidId'");
     $query->execute();
 
     $filePath=$query->fetchColumn();

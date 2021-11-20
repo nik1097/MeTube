@@ -54,7 +54,26 @@
     echo "<form action='download.php' method='POST' >
     <button type='submit' value='$mediaId' name='downloadButton'>Download</button>
     </form>";
-    if($loggedInUserName!="") {
+    if($loggedInUserName!=""){
+
+        echo "<form action='updateRating.php' method='POST' >
+        <td><select name='rate'>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+      	</select>
+      	<button type='submit' value='$mediaId' name='ratingButton'>Update Rating</button>
+        </form>";
+
+    	$ratingquery = $con->prepare("SELECT ROUND(AVG(ratedIndex),0) as avg FROM rating where mediaId='$mediaId'");
+        $ratingquery->execute();
+
+        while($row = $ratingquery->fetch(PDO::FETCH_ASSOC)){
+            echo "Overall Rating: ". $row['avg'];
+        }
+
         echo "<form action='addtoplaylist.php' method='POST' >";
         $query = $con->prepare("SELECT * FROM playlist where userName = '$loggedInUserName'");
         $query->execute();
