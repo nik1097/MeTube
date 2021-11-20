@@ -9,6 +9,7 @@ $description = $_POST['description'];
 $category = $_POST['category'];
 $visibility = $_POST['visibility'];
 $keywords = $_POST['keywords'];
+$keywords = rtrim($keywords, ';');
 $keyword_arr = explode(',', $keywords);
 
 $videoExts = array("video/mp4");
@@ -38,12 +39,9 @@ if($_FILES["mediaFile"]["error"] > 0 ) {
 $upload_file = $file_path.$filename; //urlencode work on GET, POST can contain special characters
 if(file_exists($upload_file))
 {
-    echo $extension."<br>";
-    echo $mediaType."<br>";
-    echo $size;
     echo "File".$upload_file." already exists";
-    header("Refresh: 200;upload.php?file_exist=true");
-    //header("location:upload.php?file_exist=true");
+   // header("Refresh: 200;upload.php?file_exist=true");
+    header("location:upload.php?file_exist=true");
     exit;
 }
 
@@ -65,7 +63,7 @@ try{
     if ($keywords != "") {
         for ($i = 0; $i < count($keyword_arr); $i++) {
             $key = $keyword_arr[$i];
-            echo "$key"."<br>";
+            //echo "$key"."<br>";
             $query = $con->prepare("INSERT INTO keywords(keyword, media_id) VALUES('$key', '$mediaId')");
             $query->execute();
         }
@@ -92,5 +90,5 @@ catch(Exception $e){
 //    header("Location: upload.php");
 //    exit;
 //}
-header("Refresh: 20;URL=upload.php?");
+header("Refresh: 2;URL=upload.php?");
 ?>

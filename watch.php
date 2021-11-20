@@ -1,5 +1,5 @@
-<?php 
-
+<?php
+    require_once("files/connection.php");
     require_once("files/main.php");
     require_once("files/Classes/MediaPlayer.php");
     require_once("files/Classes/MediaInfoSection.php");
@@ -11,16 +11,22 @@
         exit();
     }
 
-    $vidId="";
+    $mediaId="";
     if(isset($_GET["Id"])){
-        $vidId = $_GET["Id"];
+        $mediaId = $_GET["Id"];
     }
     if(isset($_POST["postComment"])){
-        $vidId = $_POST["postComment"];
+        $mediaId = $_POST["postComment"];
     }
 
-    $media= new Media($con,$vidId);
+    $media= new Media($con,$mediaId);
     $media->incrementViews();
+
+    $query = $con->prepare("SELECT uploadedBy FROM media where id = '$mediaId'");
+    $query->execute();
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    $mediaOwner = $row['uploadedBy'];
+
 ?>
 
 <div class="PageDiv"> 
@@ -33,7 +39,7 @@
     <div class= "suggestions">
         <?php
             $mediaGrid= new MediaGrid($con);
-            echo $mediaGrid->create('Recommendation', "", "","", $loggedInUserName, $vidId);
+            echo $mediaGrid->create('Recommendation', "", "","", $loggedInUserName, $mediaId);
         ?>
 
     </div>
@@ -46,47 +52,53 @@
     echo $mediaPlayer->create();
 
     echo "<form action='download.php' method='POST' >
-    <button type='submit' value='$vidId' name='downloadButton'>Download</button>
+    <button type='submit' value='$mediaId' name='downloadButton'>Download</button>
     </form>";
+    if($loggedInUserName!="") {
+        echo "<form action='addtoplaylist.php' method='POST' >";
+        $query = $con->prepare("SELECT * FROM playlist where userName = '$loggedInUserName'");
+        $query->execute();
 
-    echo "<form action='addtoplaylist.php' method='POST' >";
-    $query = $con->prepare("SELECT * FROM playlist where userName = '$loggedInUserName'");
-    $query->execute();
+        echo "<select name='playlistname'>";
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+        }
+        echo "</select>";
 
-    echo "<select name='playlistname'>";
-    while($row= $query->fetch(PDO::FETCH_ASSOC)){
-        echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
-    }
-    echo "</select>";
+        echo "<button type='submit' value='$mediaId' name='playlistButton'>Add to Playlist</button>
+        </form>";
 
-    echo "<button type='submit' value='$vidId' name='playlistButton'>Add to Playlist</button>
-    </form>";
+        $checkquery = $con->prepare("SELECT * from favorites where userName='$loggedInUserName' and videoId = '$mediaId'");
+        $checkquery->execute();
+        if ($checkquery->rowCount() == 0) {
+            echo "<form action='addtofavorites.php' method='GET' >
+                    <button type='submit' value='$mediaId' name='Id'>Add to Favorite</button>
+                  </form>";
 
-    $checkquery = $con -> prepare("SELECT * from favorites where userName='$loggedInUserName' and videoId = '$vidId'");
-    $checkquery -> execute();
-    if($checkquery->rowCount()==0){
-         echo "<form action='addtofavorites.php' method='GET' >
-                <button type='submit' value='$vidId' name='Id'>Add to Favorite</button>
+        } else {
+            echo "<form action='removeFromFavorite.php' method='GET' >
+                    <button type='submit' value='$mediaId' name='Id'>Remove from Favorite</button>
+                  </form>";
+
+        }
+
+        if (isset($_GET["add"]) && $_GET["add"] == 'success') {
+            echo "<div class='badge'>
+                     <p style = 'color:red'>Successfully added to Favorite!</p>
+                  </div>";
+        }
+
+        if (isset($_GET["delete"]) && $_GET["delete"] == 'success') {
+            echo "<div class='badge'>
+                    <p style = 'color:red'>Successfully removed From Favorite!</p>
+                  </div>";
+        }
+
+        if ($mediaOwner == $loggedInUserName) {
+            echo "<form action='updateVideoInfo.php' method='GET' >
+                    <button type='submit' value='$mediaId' name='Id'>Edit Video Info</button>
               </form>";
-
-    }
-    else{
-        echo "<form action='removeFromFavorite.php' method='GET' >
-                <button type='submit' value='$vidId' name='Id'>Remove from Favorite</button>
-              </form>";
-
-    }
-
-    if (isset($_GET["add"]) && $_GET["add"] == 'success') {
-        echo "<div class='badge'>
-                 <p style = 'color:red'>Successfully added to Favorite!</p>
-              </div>";
-    }
-
-    if (isset($_GET["delete"]) && $_GET["delete"] == 'success') {
-        echo "<div class='badge'>
-                <p style = 'color:red'>Successfully removed From Favorite!</p>
-              </div>";
+        }
     }
 ?> 
 </div>
@@ -95,7 +107,7 @@
 <?php
     echo "<div style='padding-top:20px;' ><h3>Comment Section</h3></div>";
     if(isset($_GET["Id"])){
-        $result=$commentsClass->getAllCommentsOfMedia($vidId);
+        $result=$commentsClass->getAllCommentsOfMedia($mediaId);
         if($result==""){
             echo "No Comments";
         }
@@ -106,10 +118,10 @@
     }
 
     if(isset($_POST["postComment"])){
-        $commentsClass->postComment($loggedInUserName,$vidId,$_POST['comment']); 
-        $result=$commentsClass->getAllCommentsOfMedia($vidId);
+        $commentsClass->postComment($loggedInUserName,$mediaId,$_POST['comment']);
+        $result=$commentsClass->getAllCommentsOfMedia($mediaId);
         echo $result;
-        header("location:watch.php?Id=$vidId");
+        header("location:watch.php?Id=$mediaId");
     }
 
 
@@ -122,7 +134,7 @@ if($loggedInUserName!=""){
                 <div class='input-group'>
                     <input type='text' id='comment' name='comment' required placeholder='your comment' class='form-control' >
                     <div class='input-group-append'>
-                        <button class='btn btn-primary' type='submit' value='$vidId' name='postComment'>Post</button>
+                        <button class='btn btn-primary' type='submit' value='$mediaId' name='postComment'>Post</button>
                     </div>
                 </div>
             </form>
