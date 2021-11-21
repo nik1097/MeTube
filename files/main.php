@@ -100,32 +100,35 @@ $loggedInUser = new UserDetails($con, $loggedInUserName);
             <li class='nav-item'>
                 <a href='index.php?page=Home'>Home</a>
             </li>
-<!--            <li class='nav-item'>-->
-<!---->
-<!--                <a href='CategorySearch.php'>Search by Category</a>-->
-<!--            </li>-->
+            <li class='nav-item'>
+                <a href='wordCloud.php'>Word Cloud</a>
+            </li>
             <?php
             if ($loggedInUserName != "") {
                 echo "<li class='nav-item'>
-      <a href='updateProfile.php'>Update Profile</a>
-        </li>
-        <li class='nav-item'>
-        <a href='friend.php'>Contacts</a>
-      </li> 
-      <li class='nav-item'>
-        <a href='message.php'>Messages</a>
-      </li>
-      
-      <li class='nav-item'>
-      <a href='channels.php'>Your Channel</a>
-    </li>
-    <li class='nav-item'>
-      <a href='playlist.php?id='>Your Playlist</a>
-    </li>
-
-    <li class='nav-item'>
-      <a href='favorites.php'>Favorite List</a>
-    </li>";
+                      <a href='updateProfile.php'>Update Profile</a>
+                        </li>
+                        <li class='nav-item'>
+                        <a href='friend.php'>Contacts</a>
+                      </li> 
+                      <li class='nav-item'>
+                        <a href='message.php'>Messages</a>
+                      </li>
+                      
+                      <li class='nav-item'>
+                      <a href='channels.php'>Your Channel</a>
+                    </li>
+                    <li class='nav-item'>
+                      <a href='playlist.php?id='>Your Playlist</a>
+                    </li>
+                
+                    <li class='nav-item'>
+                      <a href='favorites.php'>Favorite List</a>
+                    </li>
+                    
+                    <li class='nav-item'>
+                      <a href='discussionBoard.php'>Discussion Board</a>
+                    </li>";
             }
             ?>
         </ul>

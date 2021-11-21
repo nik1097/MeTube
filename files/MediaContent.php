@@ -19,6 +19,7 @@
         $keywords = $_GET["keywords"];
     }
 
+    $size = "";
 ?>
 
 <div class='videoSection'>
@@ -32,7 +33,7 @@
         $mediaGrid= new MediaGrid($con);
         //echo "<div> '$category' '$sortby'</div>";
 
-        echo $mediaGrid->create($page, $category, $keywords, $sortby, $loggedInUserName);
+        echo $mediaGrid->create($page, $category, $keywords, $sortby, $loggedInUserName, $size);
     //}
     ?>
 </div>

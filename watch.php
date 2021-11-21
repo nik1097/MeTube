@@ -37,9 +37,12 @@
     ?>
     </div>
     <div class= "suggestions">
+        <div>
+            Recommended media for you:
+        </div>
         <?php
             $mediaGrid= new MediaGrid($con);
-            echo $mediaGrid->create('Recommendation', "", "","", $loggedInUserName, $mediaId);
+            echo $mediaGrid->create('Recommendation', "", "","", $loggedInUserName, "", $mediaId);
         ?>
 
     </div>
