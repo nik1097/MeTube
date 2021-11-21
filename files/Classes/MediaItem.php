@@ -26,6 +26,7 @@ class MediaItem{
         $views = $this->media->getViews();
         $description = $this->media->getDescription();
         $uploaddate = $this->media->getUploadDate();
+        $size = $this->media->getMediasize();
         
         return "<div class='details'>
                 <h3 class='title'>$title</h3>
@@ -35,6 +36,7 @@ class MediaItem{
                     <span class='viewCount'>$views Views </span>
                     <span class='uploaddate'>$uploaddate</span>
                 </div>
+                <span class='description'>$size</span>
                 </div>";
     }
 } 

@@ -73,6 +73,10 @@ class Media{
         $query= $this->con->prepare("UPDATE media SET views = views+1 WHERE id = '$videoId'");
         $query->execute();
         $this->userData["views"] = $this->userData["views"] + 1;
-    }    
+    }  
+
+    public function getMediasize(){
+        return round($this->userData["mediaSize"]/1024, 2). "kb";
+    }  
 }
 ?>
