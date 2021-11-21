@@ -62,7 +62,7 @@
         echo "Not enough ratings available";
     }
     else{
-        $ratingquery = $con->prepare("SELECT ROUND(AVG(ratedIndex),0) as avg FROM rating where mediaId='$mediaId'");
+        $ratingquery = $con->prepare("SELECT ROUND(AVG(ratedIndex),1) as avg FROM rating where mediaId='$mediaId'");
         $ratingquery->execute();
         while($row = $ratingquery->fetch(PDO::FETCH_ASSOC)){
             echo "Overall Rating: ". $row['avg'];
