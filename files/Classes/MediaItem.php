@@ -6,8 +6,8 @@ class MediaItem{
     }
 
     public function create(){
-        $thumbnail_path = '/MeTube/'.$this->media->getThumbnailpath();
-
+        //$thumbnail_path = '/MeTube/'.$this->media->getThumbnailpath();
+        $thumbnail_path = $this->media->getThumbnailpath();
         $thumbnail="<div class='thumbnail'>
                     <img src='$thumbnail_path'></div>";
         $details= $this->createDetails();

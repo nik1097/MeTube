@@ -3,7 +3,6 @@ require_once("files/connection.php");
 require_once("files/main.php");
 
 $vedioId = (int)$_GET['Id'];
-echo "$vedioId";
 $query = $con->prepare("SELECT * FROM media where id = '$vedioId'");
 $query->execute();
 $row = $query->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +32,7 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 $keywords = rtrim($keywords, ';');
 
 $actionString = "updateVideoProcess.php?Id=".$vedioId;
-echo "$actionString";
+//echo "$actionString";
 ?>
 
 <form action=<?php echo "$actionString" ?> method="POST" enctype="multipart/form-data">
