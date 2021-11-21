@@ -9,23 +9,17 @@ class MediaGrid
         $this->con = $con;
     }
 
-    public function createGridHeader($title, $hide = 'not hidden')
+    public function createGridHeader($title)
     {
         $filter = "";
-        if ($hide != 'hidden') {
-//            $filter = "<div class='right'>
-//                        <span>Order by:</span>
-//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=uploadDate'>Upload Date</a>
-//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Views'>Most Viewed</a>
-//                        <a href='http://localhost/MeTube/search.php?term=&orderBy=Title'>Sort by Title</a>
-//                    </div>";
-            return "<div class='videoGridHeader'> 
-                <div class='left'>
-                    $title
-                </div>
-<!--                $filter -->
-        </div>";
-        }
+
+        return "<div class='videoGridHeader'> 
+                    <div class='left'>
+                        $title
+                    </div>
+
+                </div>";
+
     }
 
     public function createBlock($headerTitle, $gridItems)
@@ -77,7 +71,7 @@ class MediaGrid
         return $this->createBlock("My Favorite ".$type."s", $gridItems);
     }
 
-    public function create($page, $category, $keywords, $sortby, $loggedInUserName, $videoId = 1, $hide = 'not hidden')
+    public function create($page, $category, $keywords, $sortby, $loggedInUserName, $size = '100kB', $videoId = 1)
     {
         if ($page == 'Home') {
             return $this->createHomeContentBlock('video', $category, $sortby, $loggedInUserName, $hide = 'not hidden')
