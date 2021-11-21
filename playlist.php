@@ -3,11 +3,13 @@ require_once("files/main.php");
 
 $query = $con->prepare("SELECT * from playlist where userName = '$loggedInUserName'");
 $query->execute();
+$html = "";
+
 if($query->rowCount()== 0){
     echo "";
 }
 else{
-    $html = "
+    $html .= "
     <div><div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
             <thead class='thead-dark'>
             <tr>
@@ -26,10 +28,13 @@ else{
     <td><button type='submit' class='btn btn-primary' name='viewplaylistButton' value='name'>View Playlist</button></td>
     <td><button type='submit' class='btn btn-primary' name='deleteplaylistButton' value='name'>Delete Playlist</button></td>
     </form>
-    </div></tr>";
+    </div></tr></tbody>
+    </table></div></div>";
 
-    $html.="</tbody>
-    </table></div>
+
+}
+$html.="
+    <div>
     <p1>Create A New Playlist</p1>
     <form action='playlist.php' method='POST'>
 	        <input type='text' name ='playlistNamein' placeholder='Enter Name' required>
@@ -37,8 +42,8 @@ else{
         </form>
     
     </div>";
-    echo $html;
-}
+echo $html;
+
 if(isset($_POST["createPlaylist"])){
 
     $playlistnamein = $_POST['playlistNamein'];
