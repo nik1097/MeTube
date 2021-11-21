@@ -54,6 +54,21 @@
     echo "<form action='download.php' method='POST' >
     <button type='submit' value='$mediaId' name='downloadButton'>Download</button>
     </form>";
+
+    $checkquery = $con->prepare("SELECT * from rating where mediaId = '$mediaId'");
+    $checkquery -> execute();
+
+    if ($checkquery->rowCount() == 0) {
+        echo "Not enough ratings available";
+    }
+    else{
+        $ratingquery = $con->prepare("SELECT ROUND(AVG(ratedIndex),0) as avg FROM rating where mediaId='$mediaId'");
+        $ratingquery->execute();
+        while($row = $ratingquery->fetch(PDO::FETCH_ASSOC)){
+            echo "Overall Rating: ". $row['avg'];
+        }
+    }
+
     if($loggedInUserName!=""){
 
         echo "<form action='updateRating.php' method='POST' >
@@ -66,13 +81,6 @@
       	</select>
       	<button type='submit' value='$mediaId' name='ratingButton'>Update Rating</button>
         </form>";
-
-    	$ratingquery = $con->prepare("SELECT ROUND(AVG(ratedIndex),0) as avg FROM rating where mediaId='$mediaId'");
-        $ratingquery->execute();
-
-        while($row = $ratingquery->fetch(PDO::FETCH_ASSOC)){
-            echo "Overall Rating: ". $row['avg'];
-        }
 
         echo "<form action='addtoplaylist.php' method='POST' >";
         $query = $con->prepare("SELECT * FROM playlist where userName = '$loggedInUserName'");
@@ -93,8 +101,8 @@
             echo "<form action='addtofavorites.php' method='GET' >
                     <button type='submit' value='$mediaId' name='Id'>Add to Favorite</button>
                   </form>";
-
-        } else {
+        }
+        else {
             echo "<form action='removeFromFavorite.php' method='GET' >
                     <button type='submit' value='$mediaId' name='Id'>Remove from Favorite</button>
                   </form>";
