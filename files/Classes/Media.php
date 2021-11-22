@@ -8,7 +8,6 @@ class Media{
             $this->userData=$input;
         }
         else{
-            //$query = $this->con->prepare("SELECT * FROM videos where id = '$input'");
             $query = $this->con->prepare("SELECT * FROM media where id = '$input'");
             $query->execute();
 
@@ -17,7 +16,6 @@ class Media{
     }
 
     public function getId(){
-        //return $this->userData["id"];
         return $this->userData["id"];
     }
     
@@ -37,9 +35,9 @@ class Media{
         return $this->userData["privacy"];
     }
 
-//    public function getKeywords(){
-//        return $this->userData["keywords"];
-//    }
+    public function getKeywords(){
+        return $this->userData["keywords"];
+    }
 
     public function getFilepath(){
         return $this->userData["filepath"];

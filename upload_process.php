@@ -9,7 +9,7 @@ $description = $_POST['description'];
 $category = $_POST['category'];
 $visibility = $_POST['visibility'];
 $keywords = $_POST['keywords'];
-$keywords = rtrim($keywords, ';');
+$keywords = rtrim($keywords, ',');
 $keyword_arr = explode(',', $keywords);
 
 $videoExts = array("video/mp4");
@@ -50,8 +50,8 @@ try{
         $upload_file);
     echo "Stored in: " . $file_path;
     chmod($upload_file, 0644);
-    $query = $con->prepare("INSERT INTO media(mediaType, title, description, category, privacy, filepath, file_extension, mediaSize, uploadedBy, views) 
-                    VALUES('$mediaType', '$title', '$description','$category','$visibility', '$upload_file', '$extension', '$size','$username', 0)");
+    $query = $con->prepare("INSERT INTO media(mediaType, title, description, category, privacy, filepath, file_extension, mediaSize, uploadedBy, views, keywords) 
+                    VALUES('$mediaType', '$title', '$description','$category','$visibility', '$upload_file', '$extension', '$size','$username', 0, $keywords)");
     $query->execute();
     //get the media id just added to database
     $query = $con->prepare("SELECT id FROM media order by id desc limit 1");

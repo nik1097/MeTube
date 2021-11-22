@@ -155,7 +155,7 @@ padding: 20px 0 8px 0;
 }
 
 .videoGridItem .details{
-    padding-right: 24px;
+    padding-right: 8px;
     position: relative;
     cursor: pointer;
     display: flex;
@@ -200,7 +200,7 @@ padding: 20px 0 8px 0;
     flex: 1;
 }
 
-.videoGridItem .details .description {
+.videoGridItem .details .description{
     color: rgba(17,17,17,0.6);
     font-size: 13px;
     font-weight: 500;

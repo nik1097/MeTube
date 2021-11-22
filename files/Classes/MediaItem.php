@@ -6,7 +6,6 @@ class MediaItem{
     }
 
     public function create(){
-        //$thumbnail_path = '/MeTube/'.$this->media->getThumbnailpath();
         $thumbnail_path = $this->media->getThumbnailpath();
         $thumbnail="<div class='thumbnail'>
                     <img src='$thumbnail_path'></div>";
@@ -24,19 +23,20 @@ class MediaItem{
         $title = $this->media->getTitle();
         $userName = $this->media->getUploadedBy();
         $views = $this->media->getViews();
-        $description = $this->media->getDescription();
+        //$description = $this->media->getDescription();
+        $keywords = $this->media->getKeywords();
         $uploaddate = $this->media->getUploadDate();
         $size = $this->media->getMediasize();
-        
+        //<span class='description'>$description</span>
         return "<div class='details'>
-                <h3 class='title'>$title</h3>
-                <span class='username'>$userName</span>
-                <span class='description'>$description</span>
-                <div class='stats'>
-                    <span class='viewCount'>$views Views </span>
-                    <span class='uploaddate'>$uploaddate</span>
-                </div>
-                <span class='description'>$size</span>
+                    <h3 class='title'>$title</h3>
+                    <span class='username'>$userName</span>
+                    <span class='description'>$keywords</span>
+                    <div class='stats'>
+                        <span class='viewCount'>$views Views </span>
+                        <span class='uploaddate'>$uploaddate</span>
+                    </div>
+                    <span class='description'>$size</span>
                 </div>";
     }
 } 

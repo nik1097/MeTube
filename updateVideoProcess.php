@@ -11,7 +11,7 @@ $description = $_POST['description'];
 $category = $_POST['category'];
 $visibility = $_POST['visibility'];
 $keywords = $_POST['keywords'];
-$keywords = rtrim($keywords, ';');
+$keywords = rtrim($keywords, ',');
 $keyword_arr = explode(',', $keywords);
 
 try{

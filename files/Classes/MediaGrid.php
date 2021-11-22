@@ -22,6 +22,20 @@ class MediaGrid
 
     }
 
+    public function getKeywords($mediaId)
+    {
+        $query = $this->con->prepare("SELECT * FROM keywords where media_id = '$mediaId'");
+        $query->execute();
+
+        $keywords = "";
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $keywords.=$row["keyword"];
+            $keywords.=" ";
+        }
+        $keywords = rtrim( $keywords, ' ');
+        return $keywords;
+    }
+
     public function createBlock($headerTitle, $gridItems)
     {
         $header = $this->createGridHeader($headerTitle);

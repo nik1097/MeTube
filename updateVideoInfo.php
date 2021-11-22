@@ -21,15 +21,12 @@ $visibilityIndex = $visibilityMap[$visibility];
 $visibilitySelect = array(false, false, false, false);
 $visibilitySelect[$visibilityIndex] = true;
 
-$query = $con->prepare("SELECT * FROM keywords where media_id = '$vedioId'");
+$query = $con->prepare("SELECT keywords FROM media where id = '$vedioId'");
 $query->execute();
 
 $keywords = "";
-while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-    $keywords.=$row["keyword"];
-    $keywords.=";";
-}
-$keywords = rtrim($keywords, ';');
+$row = $query->fetch(PDO::FETCH_ASSOC);
+$keywords.=$row["keywords"];
 
 $actionString = "updateVideoProcess.php?Id=".$vedioId;
 //echo "$actionString";
