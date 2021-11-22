@@ -56,13 +56,13 @@ class MediaGrid
         }
     }
 
-    public function createSearchContentBlock($type, $keywords, $sortby, $loggedInUserName, $hide = 'not hidden')
+    public function createSearchContentBlock($type, $keywords, $sortby, $loggedInUserName, $size)
     {
         if ($loggedInUserName == "") {
-            $gridItems = $this->getKeywordsItemsVisitor($type, $keywords, $sortby, 'Public');
+            $gridItems = $this->getKeywordsItemsVisitor($type, $keywords, $sortby, 'Public', $size);
             return $this->createBlock($type."s from '".$keywords."'", $gridItems);
         } else {
-            $gridItems = $this->getKeywordsItemsUser($type, $keywords, $sortby, 'Public', $loggedInUserName);
+            $gridItems = $this->getKeywordsItemsUser($type, $keywords, $sortby, 'Public', $loggedInUserName, $size);
             return $this->createBlock($type."s from '".$keywords."'", $gridItems);
         }
     }
@@ -100,8 +100,8 @@ class MediaGrid
         }
 
         if ($page == 'Search') {
-            return $this->createSearchContentBlock('video', $keywords, $sortby, $loggedInUserName, $hide = 'not hidden')
-                . $this->createSearchContentBlock('image', $keywords, $sortby, $loggedInUserName, $hide = 'not hidden');
+            return $this->createSearchContentBlock('video', $keywords, $sortby, $loggedInUserName, $size)
+                . $this->createSearchContentBlock('image', $keywords, $sortby, $loggedInUserName, $size);
         }
 
         if ($page == 'Recommendation') {
@@ -188,11 +188,21 @@ class MediaGrid
         return $element;
     }
 
-    public function getKeywordsItemsVisitor($type, $keywords, $sortby, $privacy)
+    public function getKeywordsItemsVisitor($type, $keywords, $sortby, $privacy, $size)
     {
         $sqlString = "SELECT media.* FROM media 
                       inner join keywords on media.id = keywords.media_id
                       where media.privacy='$privacy' and media.mediaType = '$type' and keywords.keyword = '$keywords'";
+
+        if ($size != "") {
+            if ($size == "0-100K") {
+                $sqlString .= "and media.mediaSize < 102400 ";
+            } else if ($size == "100K-1000K") {
+                $sqlString .= "and media.mediaSize Between 102400 and 1024000 ";
+            } else if ($size == ">1000K") {
+                $sqlString .= "and media.mediaSize > 1024000 ";
+            }
+        }
 
         if ($sortby != "") {
             $sqlString .= "order by media.$sortby desc";
@@ -210,13 +220,22 @@ class MediaGrid
         return $element;
     }
 
-    public function getKeywordsItemsUser($type, $keywords, $sortby, $privacy, $loggedInUserName)
+    public function getKeywordsItemsUser($type, $keywords, $sortby, $privacy, $loggedInUserName, $size)
     {
         $sqlString = "SELECT media.* FROM media 
                       inner join keywords on media.id = keywords.media_id
                       inner join users on media.uploadedBy=users.userName and users.userName !='$loggedInUserName' 
                       left outer join contact on users.userName=contact.userName and contactUserName='$loggedInUserName'
                       where media.privacy='$privacy' and media.mediaType = '$type' and (status!='Blocked' or status is NULL) and keywords.keyword = '$keywords'";
+        if ($size != "") {
+            if ($size == "0-100K") {
+                $sqlString .= "and media.mediaSize < 102400 ";
+            } else if ($size == "100K-1000K") {
+                $sqlString .= "and media.mediaSize Between 102400 and 1024000 ";
+            } else if ($size == ">1000K") {
+                $sqlString .= "and media.mediaSize > 1024000 ";
+            }
+        }
 
         if ($sortby != "") {
             $sqlString .= "order by media.$sortby desc";

@@ -18,8 +18,10 @@
     if(isset($_GET["keywords"])){
         $keywords = $_GET["keywords"];
     }
-
     $size = "";
+    if(isset($_GET["size"])){
+        $size = $_GET["size"];
+    }
 ?>
 
 <div class='videoSection'>
