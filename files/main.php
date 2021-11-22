@@ -1,9 +1,9 @@
 <?php
-require_once("files/connection.php");
-require_once("files/Classes/UserDetails.php");
-require_once("files/Classes/Media.php");
-require_once("files/Classes/MediaGrid.php");
-require_once("files/Classes/MediaItem.php");
+require_once("connection.php");
+require_once("Classes/UserDetails.php");
+require_once("Classes/Media.php");
+require_once("Classes/MediaGrid.php");
+require_once("Classes/MediaItem.php");
 
 $loggedInUserName = "";
 $page = "";
