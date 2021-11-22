@@ -30,7 +30,7 @@ class MediaItem{
         return "<div class='details'>
                     <h3 class='title'>$title</h3>
                     <span class='username'>$userName</span>
-                    <span class='keywords'>$keywords</span>
+                    <span class='description'>$keywords</span>
                     <div class='stats'>
                         <span class='viewCount'>$views Views </span>
                         <span class='uploaddate'>$uploaddate</span>
