@@ -36,10 +36,7 @@ if(isset($_POST["signupButton"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-	<body>
-	  <div id="logo"> 
-	    <img src='Logo.png'> 
-	  </div>     
+	<body>     
 	  <div class="container">
 	    <div class="title">Join MeTube</div>
 	    <h4>or <a href="login.php">sign in!</a></h4>  
