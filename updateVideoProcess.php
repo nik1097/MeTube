@@ -17,7 +17,7 @@ $keyword_arr = explode(',', $keywords);
 try{
 
     $query = $con->prepare("UPDATE media
-                                 SET title = '$title', description = '$description', category = '$category', privacy = '$visibility'
+                                 SET title = '$title', description = '$description', category = '$category', privacy = '$visibility', keywords = '$keywords'
                                  WHERE id = '$mediaId'");
     $query->execute();
     //get the media id just added to database
@@ -27,7 +27,7 @@ try{
     if ($keywords != "") {
         for ($i = 0; $i < count($keyword_arr); $i++) {
             $key = $keyword_arr[$i];
-            echo "$key"."<br>";
+            //echo "$key"."<br>";
             $query = $con->prepare("INSERT INTO keywords(keyword, media_id) VALUES('$key', '$mediaId')");
             $query->execute();
         }
@@ -38,5 +38,5 @@ catch(Exception $e){
     header("location:watch.php?Id=$mediaId");
 }
 echo "Update Success!";
-header("Refresh 2;watch.php?Id=$mediaId");
+header("Refresh: 2;URL=watch.php?Id=$mediaId");
 ?>

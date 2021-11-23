@@ -113,7 +113,7 @@ $actionString = "updateVideoProcess.php?Id=".$vedioId;
         <textarea class="form-control" name = 'description' placeholder="Enter media description 200 characters maximum" id="floatingTextarea"  maxlength="200"><?php echo $description ?></textarea>
     </div>
     <br>
-    <button class="btn btn btn-primary" value="upload" name="upload" type="submit" />Upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn btn btn-primary" value="upload" name="upload" type="submit" />Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button class="btn btn btn-secondary" value="cancel" name="cancel" type="submit" />Cancel</button>
 
 </form>

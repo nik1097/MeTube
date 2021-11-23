@@ -51,7 +51,7 @@ try{
     echo "Stored in: " . $file_path;
     chmod($upload_file, 0644);
     $query = $con->prepare("INSERT INTO media(mediaType, title, description, category, privacy, filepath, file_extension, mediaSize, uploadedBy, views, keywords) 
-                    VALUES('$mediaType', '$title', '$description','$category','$visibility', '$upload_file', '$extension', '$size','$username', 0, $keywords)");
+                    VALUES('$mediaType', '$title', '$description','$category','$visibility', '$upload_file', '$extension', '$size','$username', 0, '$keywords')");
     $query->execute();
     //get the media id just added to database
     $query = $con->prepare("SELECT id FROM media order by id desc limit 1");
