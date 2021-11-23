@@ -11,7 +11,7 @@ if(isset($_POST["loginButton"])){
     if($resultKey){
         echo "Success";
         $_SESSION["loggedinUser"] = $userName;
-        header("location:index.php?page=Home");
+        header("location:channels.php");
     }
     else{
         echo "failure";
