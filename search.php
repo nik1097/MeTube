@@ -17,6 +17,7 @@
     <div style="display:flex; font-size: 20px; justify-content: center">
         <span style="display:flex;">Refined Search by size <?php echo $size.":" ?> &nbsp; &nbsp; &nbsp;</span>
         <div>
+            <a class="btn btn-primary" href='search.php?page=Search&keywords=<?php echo $_GET["keywords"]?>'>All size</a>
             <a class="btn btn-primary" href='search.php?page=Search&keywords=<?php echo $_GET["keywords"]?>&size=0-100K'>0-100K</a>
             <a class="btn btn-primary" href='search.php?page=Search&keywords=<?php echo $_GET["keywords"]?>&size=100K-1000K'>100K-1000K</a>
             <a class="btn btn-primary" href='search.php?page=Search&keywords=<?php echo $_GET["keywords"]?>&size=>1000K'>>1000K </a>
